@@ -1,34 +1,49 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 
-interface ButtonProps {
+  interface ButtonProps {
   children: ReactNode;
   href?: string;
-  variant?: "primary" | "outline" | "navbar";
+  variant?: "primary" | "outline" | "ghost" | "accent";
   className?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
-export default function Button({ children, href, variant = "primary", className = "" }: ButtonProps) {
-  const baseStyles = "inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-bold text-sm transition-all duration-200 tracking-wide";
-  
-  const variants = {
-    primary: "bg-brand-blue text-white hover:bg-blue-800 premium-shadow",
-    outline: "border border-blue-200 bg-white text-brand-blue hover:bg-slate-50",
-    navbar: "bg-brand-blue text-white px-8 py-3 rounded-xl hover:bg-blue-800 font-semibold",
+export default function Button({
+  children,
+  href,
+  variant = "primary",
+  className = "",
+  onClick,
+  type = "button",
+}: ButtonProps) {
+  const base =
+    "inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 tracking-wide select-none";
+
+  const variants: Record<string, string> = {
+    primary:
+      "bg-brand-navy text-white hover:bg-[#002244] active:scale-[0.98] shadow-sm",
+    accent:
+      "bg-brand-gold text-[#212529] hover:bg-amber-400 active:scale-[0.98] shadow-sm",
+    outline:
+      "border border-brand-navy bg-white text-brand-navy hover:bg-slate-50 active:scale-[0.98]",
+    ghost:
+      "text-brand-navy hover:bg-brand-light active:scale-[0.98]",
   };
 
-  const combinedClasses = `${baseStyles} ${variants[variant]} ${className}`;
+  const cls = `${base} ${variants[variant]} ${className}`;
 
   if (href) {
     return (
-      <Link href={href} className={combinedClasses}>
+      <Link href={href} className={cls}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={combinedClasses}>
+    <button type={type} className={cls} onClick={onClick}>
       {children}
     </button>
   );

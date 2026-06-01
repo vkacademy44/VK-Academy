@@ -1,22 +1,79 @@
 @import "tailwindcss";
 
-/* Define custom theme tokens directly in CSS for Tailwind v4 */
+/* ── Design Tokens ─────────────────────────────────── */
 @theme {
-  --color-brand-navy: #0A192F;
-  --color-brand-blue: #1E3A8A;
-  --color-brand-light: #EFF6FF;
-  --color-brand-gray: #F8FAFC;
+  /* Brand palette – Deep Navy Blue primary */
+  --color-brand-navy:  #003366;   /* Primary Navy Blue */
+  --color-brand-blue:  #003366;   /* Accent Navy */
+  --color-brand-light: #F8F9FA;   /* Soft Gray / Neutral Light */
+  --color-brand-gray:  #F8F9FA;   /* Soft Gray */
+
+  /* Accent – Golden Yellow / Amber */
+  --color-brand-gold:  #FFB300;   /* Vibrant Amber Gold */
+
+  /* Neutral scale */
+  --color-surface:     #FFFFFF;   /* White */
+  --color-surface-2:   #F8F9FA;   /* Soft Gray */
+  --color-surface-3:   #E9ECEF;   /* Slightly darker neutral grey */
+  --color-border:      #DEE2E6;   /* Standard border grey */
+  
+  /* Text scales */
+  --color-text-1:      #212529;   /* Dark Charcoal (Primary) */
+  --color-text-2:      #212529;   /* Dark Charcoal (Primary) */
+  --color-text-3:      #6C757D;   /* Medium Gray (Secondary) */
 }
 
-/* Base custom styles using the modern layer or standard CSS syntax */
+
+/* ── Base ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-text-2);
+  background-color: var(--color-surface);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Utilities ──────────────────────────────────────── */
 @utility text-brand-heading {
   color: var(--color-brand-navy);
   font-weight: 700;
   letter-spacing: -0.025em;
 }
 
-body {
-  color: #334155; /* slate-700 alternative */
-  background-color: #ffffff;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+@utility section-pad {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
+
+/* ── Smooth scrollbar ───────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* ── Focus ring ─────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 2px;
+}
+
+/* ── Bento grid animations ──────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease both;
+}
+
+/* ── Lightbox ───────────────────────────────────────── */
+.lightbox-open { overflow: hidden; }

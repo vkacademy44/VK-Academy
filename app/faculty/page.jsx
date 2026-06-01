@@ -5,16 +5,16 @@ export default function FacultyPage() {
     <div className="w-full bg-white">
       
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-[#F4F8FF] via-white to-[#F4F8FF] py-16 lg:py-24 border-b border-blue-100">
+      <section className="bg-brand-light py-16 lg:py-24 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <div className="inline-flex items-center gap-2 bg-white text-brand-blue text-xs font-bold px-4 py-2 rounded-full w-fit mb-6 shadow-sm border border-blue-50 tracking-wide">
+          <div className="inline-flex items-center gap-2 bg-[#FFB300]/10 text-brand-navy text-xs font-bold px-4 py-2 rounded-full w-fit mb-6 shadow-sm border border-brand-gold/30 tracking-wide">
             <span>⭐</span> 5.0 Rated Excellence
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-brand-navy mb-4 tracking-tight">
-            World-Class <span className="text-brand-blue">Mentors</span>
+            World-Class <span className="text-brand-gold">Mentors</span>
           </h1>
-          <p className="text-slate-500 font-medium text-lg max-w-2xl mx-auto">
-            Meet the visionary educators who bridge the gap between academic theory and high-performance success. Our faculty are experts from premier global institutions.
+          <p className="text-slate-600 font-medium text-lg max-w-2xl mx-auto">
+            Meet the visionary educators who bridge the gap between academic theory and high-performance success. Our faculty are experts from premier local and national institutions.
           </p>
         </div>
       </section>
@@ -25,7 +25,7 @@ export default function FacultyPage() {
           
           {/* Department: Physics & Math */}
           <div className="mb-20">
-            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Department of Engineering (JEE)</h2>
+            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Department of Engineering (JEE/CET)</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
               <VisionaryCard 
                 name="Dr. Vikram K."
@@ -83,10 +83,10 @@ export default function FacultyPage() {
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="bg-brand-navy py-16">
+      <section className="bg-brand-navy py-16 rounded-sm">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-extrabold text-white mb-6">Learn from the best to become the best.</h2>
-          <Button href="/contact" variant="outline" className="px-10">
+          <Button href="/contact" variant="accent" className="px-10">
             Book a Counseling Session
           </Button>
         </div>

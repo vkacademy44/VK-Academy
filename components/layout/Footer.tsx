@@ -1,72 +1,112 @@
 import Link from "next/link";
+import Image from "next/image";
+
+const footerLinks = {
+  Explore: [
+    { name: "Academic Divisions", href: "/academic-divisions" },
+    { name: "Upcoming Batches", href: "/batches" },
+    { name: "Wall of Fame", href: "/wall-of-fame" },
+    { name: "Our Faculty", href: "/faculty" },
+    { name: "Student Life", href: "/student-life" },
+  ],
+  Support: [
+    { name: "Admissions Help", href: "/contact" },
+    { name: "FAQ", href: "#" },
+    { name: "Privacy Policy", href: "#" },
+    { name: "Terms of Service", href: "#" },
+  ],
+};
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-navy text-white pt-16 pb-8 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          
-          {/* Brand Col */}
-          <div className="lg:col-span-1">
-            <h2 className="text-2xl font-bold text-white mb-4 tracking-tight">VK Academy</h2>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Empowering students with knowledge, character, and the competitive edge needed for a bright future. A legacy of excellence.
+    <footer className="bg-brand-navy text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+
+        {/* Top grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-slate-700 shadow-sm flex items-center justify-center">
+                <Image
+                  src="/images/vkLogo.jpeg"
+                  alt="VK Academy Logo"
+                  fill
+                  sizes="32px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="text-lg font-extrabold tracking-tight">VK Academy</span>
+            </div>
+
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Empowering students with knowledge, character, and the competitive edge for a bright future. A legacy of excellence.
             </p>
           </div>
-          
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Explore</h3>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li><Link href="/academic-divisions" className="hover:text-brand-blue transition-colors">Academic Divisions</Link></li>
-              <li><Link href="/batches" className="hover:text-brand-blue transition-colors">Upcoming Batches</Link></li>
-              <li><Link href="/wall-of-fame" className="hover:text-brand-blue transition-colors">Wall of Fame</Link></li>
-              <li><Link href="/faculty" className="hover:text-brand-blue transition-colors">Our Faculty</Link></li>
-              <li><Link href="/student-life" className="hover:text-brand-blue transition-colors">Student Life</Link></li>
-            </ul>
-          </div>
 
-          {/* Support */}
-          <div>
-            <h3 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Support</h3>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li><Link href="/contact" className="hover:text-brand-blue transition-colors">Admissions Help</Link></li>
-              <li><Link href="#" className="hover:text-brand-blue transition-colors">Frequently Asked Questions</Link></li>
-              <li><Link href="#" className="hover:text-brand-blue transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-brand-blue transition-colors">Terms of Service</Link></li>
-            </ul>
-          </div>
-          
+          {/* Links */}
+          {Object.entries(footerLinks).map(([group, links]) => (
+            <div key={group}>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+                {group}
+              </h3>
+              <ul className="space-y-3">
+                {links.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-slate-300 hover:text-white transition-colors duration-150"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
           {/* Contact */}
           <div>
-             <h3 className="text-lg font-bold text-white mb-4 uppercase tracking-wider text-sm">Reach Us</h3>
-             <div className="space-y-3 text-sm text-slate-300">
-                <p>
-                  <strong>Campus:</strong><br/>
-                  123 Academic Plaza, Education Hub,<br/>
-                  New Delhi, India 110001
-                </p>
-                <p>
-                  <strong>Admissions:</strong><br/>
-                  +91 98765 43210
-                </p>
-                <p>
-                  <strong>Email:</strong><br/>
-                  admissions@vkacademy.edu
-                </p>
-             </div>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+              Reach Us
+            </h3>
+            <div className="space-y-3 text-sm text-slate-300">
+              <p className="leading-relaxed">
+                Shop No. 4, M. N. Yadav Bhavan,<br />
+                Mohili Village Pipeline, Above Jethva Tailor,<br />
+                Mumbai - 400072
+              </p>
+              <p className="space-y-1">
+                <a href="tel:8356992905" className="block hover:text-brand-gold transition-colors">
+                  📞 8356992905
+                </a>
+                <a href="tel:9653235975" className="block hover:text-brand-gold transition-colors">
+                  📞 9653235975
+                </a>
+              </p>
+              <p>
+                <a href="mailto:info@vkacademy.in" className="hover:text-brand-gold transition-colors">
+                  info@vkacademy.in
+                </a>
+              </p>
+            </div>
           </div>
-
         </div>
-        
-        {/* Bottom Copyright Banner */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-400">
-          <p>© {new Date().getFullYear()} VK Academy. Excellence in Education.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-white transition-colors">Facebook</Link>
-            <Link href="#" className="hover:text-white transition-colors">Instagram</Link>
-            <Link href="#" className="hover:text-white transition-colors">LinkedIn</Link>
-            <Link href="#" className="hover:text-white transition-colors">YouTube</Link>
+
+        {/* Divider */}
+        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+          <p>© {new Date().getFullYear()} VK Academy. All rights reserved.</p>
+          <div className="flex gap-5">
+            {["Facebook", "Instagram", "LinkedIn", "YouTube"].map((s) => (
+              <Link
+                key={s}
+                href="#"
+                className="hover:text-slate-300 transition-colors duration-150"
+              >
+                {s}
+              </Link>
+            ))}
           </div>
         </div>
 
