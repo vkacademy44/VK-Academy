@@ -77,3 +77,31 @@ body {
 
 /* ── Lightbox ───────────────────────────────────────── */
 .lightbox-open { overflow: hidden; }
+
+/* ── Testimonial Marquee ────────────────────────────── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.pause-marquee:hover .animate-marquee,
+.pause-marquee:hover .animate-marquee-reverse {
+  animation-play-state: paused;
+}

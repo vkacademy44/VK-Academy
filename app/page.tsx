@@ -2,7 +2,6 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { Users, BookOpen, LineChart, Star, ArrowRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import CompareDemo from "@/components/compare-demo";
 
 export default function Home() {
   return (
@@ -176,72 +175,87 @@ export default function Home() {
       <section className="py-20 lg:py-28 bg-brand-light overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Left Column: Academy Features & Narrative */}
-            <div className="lg:col-span-7 space-y-8">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-brand-gold mb-3">Why Us</p>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight mb-4">
-                  Why Choose VK Academy?
-                </h2>
-                <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
-                  We provide an ecosystem that fosters curiosity, instills rigorous discipline, and unlocks the true latent potential of every single student.
-                </p>
-              </div>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-gold mb-3">Why Us</p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight mb-4">
+              Why Choose VK Academy?
+            </h2>
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+              We provide an ecosystem that fosters curiosity, instills rigorous discipline, and unlocks the true latent potential of every single student.
+            </p>
+          </div>
 
-              {/* Stack of Key Benefits */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            
+            {/* Left Column: Before Transformation */}
+            <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-300">
               <div className="space-y-4">
-                {[
-                  {
-                    icon: <Users className="w-5.5 h-5.5" />,
-                    title: "Expert Faculty & Subject Mentors",
-                    desc: "Learn from highly specialized professionals and subject matter experts who guide your learning path every single day.",
-                  },
-                  {
-                    icon: <BookOpen className="w-5.5 h-5.5" />,
-                    title: "Premium Conceptual Study Material",
-                    desc: "In-house structured modules crafted to break down complex concepts into highly intuitive lessons.",
-                  },
-                  {
-                    icon: <LineChart className="w-5.5 h-5.5" />,
-                    title: "Continuous Progress & Analytics Tracking",
-                    desc: "Weekly chapter tests, detailed feedback loops, and individual tracking to bridge conceptual gaps.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex gap-4 p-5 bg-white rounded-2xl border border-slate-100 hover:border-brand-gold/40 hover:shadow-sm transition-all duration-200"
-                  >
-                    <div className="w-10 h-10 bg-brand-navy/10 rounded-xl flex items-center justify-center text-brand-navy shrink-0">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-brand-navy mb-1">{item.title}</h3>
-                      <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-rose-50 text-rose-600 text-xs font-bold uppercase tracking-wider rounded-full border border-rose-100">
+                  ❌ 9th Standard (Before VK Academy)
+                </span>
+                <p className="text-slate-500 text-xs leading-relaxed font-semibold">
+                  Traditional rote learning methods and unstructured schedule leading to average conceptual understanding.
+                </p>
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
+                  <Image
+                    src="/images/before_vk.png"
+                    alt="Before VK Academy"
+                    fill
+                    className="object-contain p-2"
+                    sizes="(max-width: 768px) 100vw, 350px"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Dynamic Student Transformation Compare Slider */}
-            <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-6">
-              <div className="text-center lg:text-left w-full">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-gold/10 text-brand-navy text-xs font-bold uppercase tracking-wider rounded-full mb-3 border border-brand-gold/30">
-                  <TrendingUp className="w-3.5 h-3.5 text-[#FFB300]" /> Proven Transformation
-                </span>
-                <h3 className="text-xl font-extrabold text-brand-navy tracking-tight mb-2">
-                  9th Standard vs. 10th Board Results
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-4">
-                  Drag or hover over the slider to witness how our students transformed their academic trajectories under VK Academy's coaching program.
-                </p>
+            {/* Middle Column: The Core Pillars */}
+            <div className="flex flex-col gap-6 justify-center">
+              {/* Card 1 */}
+              <div className="flex gap-4 p-6 bg-white rounded-2xl border border-slate-100 hover:border-brand-gold/40 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 bg-brand-navy/10 rounded-xl flex items-center justify-center text-brand-navy shrink-0">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-brand-navy mb-1.5">Expert Faculty & Subject Mentors</h3>
+                  <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                    Learn from highly specialized professionals and subject matter experts who guide your learning path every single day.
+                  </p>
+                </div>
               </div>
 
-              {/* Interactive Compare Slider Component */}
-              <div className="relative p-2 bg-white rounded-3xl shadow-md border border-slate-100 w-full flex justify-center">
-                <CompareDemo />
+              {/* Card 2 */}
+              <div className="flex gap-4 p-6 bg-white rounded-2xl border border-slate-100 hover:border-brand-gold/40 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 bg-brand-navy/10 rounded-xl flex items-center justify-center text-brand-navy shrink-0">
+                  <BookOpen className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-brand-navy mb-1.5">Premium Conceptual Study Material</h3>
+                  <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                    In-house structured modules crafted to break down complex concepts into highly intuitive lessons.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: After Transformation */}
+            <div className="bg-white border-2 border-brand-gold rounded-3xl p-6 shadow-md flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="space-y-4">
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-brand-gold/10 text-brand-navy text-xs font-bold uppercase tracking-wider rounded-full border border-brand-gold/30">
+                  <TrendingUp className="w-3.5 h-3.5 text-brand-navy fill-brand-navy" /> 🏆 10th Board Results (After VK Academy)
+                </span>
+                <p className="text-slate-500 text-xs leading-relaxed font-semibold">
+                  Conceptual clarity, robust exam strategies, and confidence to secure top board ranks.
+                </p>
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-brand-gold/20 bg-brand-light flex items-center justify-center">
+                  <Image
+                    src="/images/after_vk.png"
+                    alt="After VK Academy"
+                    fill
+                    className="object-contain p-2"
+                    sizes="(max-width: 768px) 100vw, 350px"
+                  />
+                </div>
               </div>
             </div>
 
@@ -347,6 +361,139 @@ export default function Home() {
             </Link>
           </div>
 
+        </div>
+      </section>
+
+      {/* ── GOOGLE REVIEWS SECTION ───────────────────────────────────── */}
+      <section className="py-20 lg:py-24 bg-white border-t border-b border-slate-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-gold/10 text-brand-navy text-xs font-bold uppercase tracking-wider rounded-full mb-3 border border-brand-gold/30">
+            <Star className="w-3 h-3 fill-brand-gold text-brand-gold" /> Student & Parent Reviews
+          </span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight mb-4">
+            Hear from Our Community
+          </h2>
+          <p className="text-slate-600 text-base leading-relaxed max-w-2xl mx-auto">
+            See how our conceptual teaching methodology and dedicated mentorship have helped students transform their academic trajectories.
+          </p>
+        </div>
+
+        {/* Scrolling review track 1 (Scrolls Left) */}
+        <div className="relative w-full overflow-hidden py-4 pause-marquee">
+          <div className="animate-marquee gap-6 flex">
+            {[
+              {
+                name: "Ritesh Yadav",
+                role: "Student (10th Board · 95.6%)",
+                text: "The study materials and mock tests provided by VK Academy were extremely helpful. Vikram Sir's physics tips helped me secure 98 in physics!",
+              },
+              {
+                name: "Dr. Sunita Sharma",
+                role: "Parent of JEE Aspirant",
+                text: "VK Academy changed my son's approach to learning. The small batch size of 15 students ensures the teachers can clear doubts immediately. Extremely satisfied!",
+              },
+              {
+                name: "Sneha Patel",
+                role: "NEET Achiever (680/720)",
+                text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to crack NEET on my first attempt.",
+              },
+            ].concat([
+              {
+                name: "Ritesh Yadav",
+                role: "Student (10th Board · 95.6%)",
+                text: "The study materials and mock tests provided by VK Academy were extremely helpful. Vikram Sir's physics tips helped me secure 98 in physics!",
+              },
+              {
+                name: "Dr. Sunita Sharma",
+                role: "Parent of JEE Aspirant",
+                text: "VK Academy changed my son's approach to learning. The small batch size of 15 students ensures the teachers can clear doubts immediately. Extremely satisfied!",
+              },
+              {
+                name: "Sneha Patel",
+                role: "NEET Achiever (680/720)",
+                text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to crack NEET on my first attempt.",
+              },
+            ]).map((rev, idx) => (
+              <div
+                key={idx}
+                className="w-[380px] bg-brand-light p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-brand-gold/40 hover:shadow-md transition-all duration-300 shrink-0 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex gap-0.5 text-brand-gold mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-gold" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium italic">
+                    "{rev.text}"
+                  </p>
+                </div>
+                <div className="mt-5 pt-4 border-t border-slate-200/60">
+                  <p className="text-sm font-bold text-brand-navy">{rev.name}</p>
+                  <p className="text-xs font-semibold text-slate-400 mt-0.5">{rev.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Scrolling review track 2 (Scrolls Right) */}
+        <div className="relative w-full overflow-hidden py-4 pause-marquee mt-2">
+          <div className="animate-marquee-reverse gap-6 flex">
+            {[
+              {
+                name: "Amit More",
+                role: "Student (12th Science)",
+                text: "Rajiv Sir's organic chemistry lectures are the best. I used to struggle with reactions, but the conceptual modules broke them down beautifully.",
+              },
+              {
+                name: "Mrs. Rekha Joshi",
+                role: "Parent (10th Class Student)",
+                text: "Excellent coaching classes near Mohili Pipeline. The individual attention and regular parent-teacher meetings kept us in the loop throughout the year.",
+              },
+              {
+                name: "Shubham Kadam",
+                role: "MHT-CET Ranker",
+                text: "Calculus and algebra became my strongest subjects thanks to Shreya Ma'am's shortcuts. VK Academy builds a solid foundation for both Boards and competitive exams.",
+              },
+            ].concat([
+              {
+                name: "Amit More",
+                role: "Student (12th Science)",
+                text: "Rajiv Sir's organic chemistry lectures are the best. I used to struggle with reactions, but the conceptual modules broke them down beautifully.",
+              },
+              {
+                name: "Mrs. Rekha Joshi",
+                role: "Parent (10th Class Student)",
+                text: "Excellent coaching classes near Mohili Pipeline. The individual attention and regular parent-teacher meetings kept us in the loop throughout the year.",
+              },
+              {
+                name: "Shubham Kadam",
+                role: "MHT-CET Ranker",
+                text: "Calculus and algebra became my strongest subjects thanks to Shreya Ma'am's shortcuts. VK Academy builds a solid foundation for both Boards and competitive exams.",
+              },
+            ]).map((rev, idx) => (
+              <div
+                key={idx}
+                className="w-[380px] bg-brand-light p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-brand-gold/40 hover:shadow-md transition-all duration-300 shrink-0 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex gap-0.5 text-brand-gold mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-gold" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed font-medium italic">
+                    "{rev.text}"
+                  </p>
+                </div>
+                <div className="mt-5 pt-4 border-t border-slate-200/60">
+                  <p className="text-sm font-bold text-brand-navy">{rev.name}</p>
+                  <p className="text-xs font-semibold text-slate-400 mt-0.5">{rev.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
