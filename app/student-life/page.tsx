@@ -30,7 +30,7 @@ const mediaItems: MediaItem[] = [
     type: "image",
     src: "/images/WhatsApp Image 2026-05-31 at 8.35.13 PM.jpeg",
     alt: "Active Classroom Engagement & Practical Learning",
-    category: "Classrooms",
+    category: "Fun",
     span: "tall",
   },
   {
@@ -38,7 +38,7 @@ const mediaItems: MediaItem[] = [
     type: "image",
     src: "/images/WhatsApp Image 2026-05-31 at 8.35.15 PM (1).jpeg",
     alt: "Annual Science Seminar & Conceptual Lectures",
-    category: "Seminars",
+    category: "Achievements",
     span: "normal",
   },
   {
@@ -46,7 +46,7 @@ const mediaItems: MediaItem[] = [
     type: "image",
     src: "/images/WhatsApp Image 2026-05-31 at 8.35.15 PM (2).jpeg",
     alt: "High-Energy Interactive Workshops & Student Events",
-    category: "Events",
+    category: "Fun",
     span: "wide",
   },
   {
@@ -62,7 +62,7 @@ const mediaItems: MediaItem[] = [
     type: "image",
     src: "/images/WhatsApp Image 2026-05-31 at 8.35.15 PM.jpeg",
     alt: "Cooperative Peer Groups & Study Circles",
-    category: "Classrooms",
+    category: "Fun",
     span: "normal",
   },
   {
@@ -70,7 +70,7 @@ const mediaItems: MediaItem[] = [
     type: "image",
     src: "/images/vkFounder.jpeg",
     alt: "Academic Guidance Session by VK Academy Founder",
-    category: "Seminars",
+    category: "Achievements",
     span: "tall",
   },
   {
@@ -83,7 +83,7 @@ const mediaItems: MediaItem[] = [
   },
 ];
 
-const categories = ["All", "Fun", "Classrooms", "Seminars", "Events", "Achievements"];
+const categories = ["All", "Fun", "Achievements"];
 
 /* ── Bento cell class resolver ───────────────────────────────────────────── */
 function spanClass(span?: string) {

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function FloatingWhatsApp() {
   // Replace this with your actual WhatsApp business number (include country code, omit the +)
-  const whatsappNumber = "919876543210"; 
+  const whatsappNumber = "918356992905"; 
   
   // Optional: Pre-filled message when they open the chat
   const message = encodeURIComponent("Hello VK Academy! I would like to inquire about your classroom programs.");

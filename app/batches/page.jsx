@@ -4,18 +4,18 @@ import { Calendar, Clock, MapPin, Users, ArrowRight } from "lucide-react";
 
 export default function BatchesPage() {
   // Mock data for upcoming batches
-  const engineeringBatches = [
+  const collegeBatches = [
     {
-      name: "JEE Mains & Advanced 2027",
-      type: "2-Year Regular Classroom",
+      name: "Class 12 Science (Board + MHT-CET 2027)",
+      type: "1-Year Regular Classroom",
       startDate: "April 06, 2026",
       timing: "04:00 PM - 08:00 PM (Mon-Fri)",
       seats: "Filling Fast",
       location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     },
     {
-      name: "MHT-CET Target Batch 2027",
-      type: "1-Year Regular / Fast Track",
+      name: "Class 11 Science (Board + MHT-CET 2028)",
+      type: "2-Year Regular Classroom",
       startDate: "April 15, 2026",
       timing: "04:00 PM - 07:30 PM (Mon-Sat)",
       seats: "Admissions Open",
@@ -23,20 +23,20 @@ export default function BatchesPage() {
     }
   ];
 
-  const medicalBatches = [
+  const schoolBatches = [
     {
-      name: "NEET UG Target 2027",
-      type: "2-Year Regular Classroom",
+      name: "Class 9th & 10th Board Batch",
+      type: "Regular Board Prep",
       startDate: "April 06, 2026",
-      timing: "04:00 PM - 08:00 PM (Mon-Fri)",
+      timing: "05:00 PM - 07:30 PM (Mon-Fri)",
       seats: "Filling Fast",
       location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     },
     {
-      name: "NEET Repeaters Batch 2027",
-      type: "1-Year Intensive Classroom",
-      startDate: "April 20, 2026",
-      timing: "09:00 AM - 02:00 PM (Mon-Sat)",
+      name: "Class 5th to 8th Foundation Batch",
+      type: "Concept Building & School Prep",
+      startDate: "April 10, 2026",
+      timing: "04:00 PM - 06:00 PM (Mon-Fri)",
       seats: "Limited Seats",
       location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     }
@@ -60,29 +60,29 @@ export default function BatchesPage() {
       {/* Batches Content */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-16 space-y-20">
         
-        {/* Engineering Section */}
+        {/* College Section */}
         <div>
           <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Division of Engineering & CET</h2>
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Class 11 and 12 Science</h2>
             <div className="h-[1px] flex-grow bg-slate-200 mt-2"></div>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {engineeringBatches.map((batch, index) => (
+            {collegeBatches.map((batch, index) => (
               <BatchCard key={index} {...batch} badgeColor="bg-blue-50 text-brand-navy border border-blue-200" />
             ))}
           </div>
         </div>
 
-        {/* Medical Section */}
+        {/* School Section */}
         <div>
           <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Division of Medical (NEET)</h2>
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Class 5 to 10 Secondary</h2>
             <div className="h-[1px] flex-grow bg-slate-200 mt-2"></div>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {medicalBatches.map((batch, index) => (
+            {schoolBatches.map((batch, index) => (
               <BatchCard key={index} {...batch} badgeColor="bg-emerald-50 text-emerald-800 border border-emerald-200" />
             ))}
           </div>
@@ -103,12 +103,6 @@ export default function BatchesPage() {
               <Link 
                 href="/contact" 
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-bold text-sm transition-all duration-200 bg-brand-gold text-brand-navy hover:bg-amber-400 shadow-lg"
-              >
-                Book Campus Visit
-              </Link>
-              <Link 
-                href="/contact" 
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-bold text-sm transition-all duration-200 border border-white/20 text-white hover:bg-white/10"
               >
                 Request Callback
               </Link>

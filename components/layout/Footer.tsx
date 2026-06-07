@@ -79,15 +79,12 @@ export default function Footer() {
               </p>
               <p className="space-y-1">
                 <a href="tel:8356992905" className="block hover:text-brand-gold transition-colors">
-                  📞 8356992905
-                </a>
-                <a href="tel:9653235975" className="block hover:text-brand-gold transition-colors">
-                  📞 9653235975
+                  📞 83569 92905
                 </a>
               </p>
               <p>
-                <a href="mailto:info@vkacademy.in" className="hover:text-brand-gold transition-colors">
-                  info@vkacademy.in
+                <a href="mailto:vkacademy44@gmail.com" className="hover:text-brand-gold transition-colors">
+                  vkacademy44@gmail.com
                 </a>
               </p>
             </div>

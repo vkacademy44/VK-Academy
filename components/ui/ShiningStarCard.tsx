@@ -5,16 +5,27 @@ interface ShiningStarCardProps {
   achievement: string;
   tag: string;
   imagePlaceholder: string;
+  imageSrc?: string;
 }
 
-export default function ShiningStarCard({ name, achievement, tag, imagePlaceholder }: ShiningStarCardProps) {
+export default function ShiningStarCard({ name, achievement, tag, imagePlaceholder, imageSrc }: ShiningStarCardProps) {
   return (
     <div className={`relative h-[380px] w-full rounded-3xl overflow-hidden group ${imagePlaceholder}`}>
       
-      {/* Image Placeholder Text (will be hidden when you use real <Image/> tags) */}
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <span className="text-white/50 font-medium text-sm">Student Photo</span>
-      </div>
+      {/* Student Photo or Placeholder Text */}
+      {imageSrc ? (
+        <Image
+          src={imageSrc}
+          alt={name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105 z-0"
+          sizes="(max-width: 768px) 100vw, 280px"
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center z-0">
+          <span className="text-white/50 font-medium text-sm">Student Photo</span>
+        </div>
+      )}
 
       {/* Dark Gradient Overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent z-10"></div>

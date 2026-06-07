@@ -35,7 +35,7 @@ export default function Home() {
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 max-w-lg mb-10 leading-relaxed font-medium">
-                Empowering Students from Std 5th to 12th Science with Expert Guidance for CET, JEE & NEET. Built on strong PCM/PCB foundations.
+                Empowering Students from Std 5th to 12th Science with Expert Guidance for CET & Board Exams. Built on strong PCM/PCB foundations.
               </p>
 
               <div className="flex flex-wrap gap-3 mb-14">
@@ -152,7 +152,7 @@ export default function Home() {
                 </p>
                 <div className="h-px bg-slate-200" />
                 <ul className="space-y-3">
-                  {["CET Entrance Preparation", "JEE Mains (Engineering Exams)", "NEET (Medical Board Exams)", "Strong PCM & PCB Core Foundations"].map((bullet) => (
+                  {["CET Entrance Preparation", "Class 11 & 12 Board Exams", "Concept-Based Lectures", "Strong PCM & PCB Core Foundations"].map((bullet) => (
                     <li key={bullet} className="flex items-center gap-2.5 text-slate-700 text-sm font-semibold">
                       <span className="w-5 h-5 bg-brand-gold/25 rounded-full flex items-center justify-center text-brand-navy text-xs font-black">✓</span>
                       {bullet}
@@ -278,18 +278,27 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { name: "Rahul Sharma", result: "JEE Advanced · AIR 12", tag: "IIT Bombay CS" },
-              { name: "Sneha Gupta", result: "NEET 2023 · 710/720", tag: "AIIMS Delhi" },
-              { name: "Arjun Mehta", result: "CA Foundation · State Topper", tag: "AIR 4" },
+              { name: "Mrunal Sawant", result: "10th Board · 90.20%", tag: "SSC Topper", imageSrc: "/images/3.2026.jpeg" },
+              { name: "Neel Vadke", result: "10th Board · 90.00%", tag: "SSC Topper", imageSrc: "/images/2.2026.jpeg" },
+              { name: "Mayank Mahajan", result: "10th Board · 89.80%", tag: "SSC Topper", imageSrc: "/images/4.2026.jpeg" },
+              { name: "Rose Joseph", result: "10th Board · 85.40%", tag: "SSC Topper", imageSrc: "/images/1.2026.jpeg" },
             ].map((star, i) => (
               <div
                 key={star.name}
                 className={`relative h-72 rounded-2xl overflow-hidden group ${
-                  ["bg-slate-700", "bg-slate-800", "bg-slate-900"][i]
+                  ["bg-slate-700", "bg-slate-800", "bg-slate-900", "bg-slate-950"][i % 4]
                 }`}
               >
+                {/* Image */}
+                <Image
+                  src={star.imageSrc}
+                  alt={star.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105 z-0"
+                  sizes="(max-width: 768px) 100vw, 350px"
+                />
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 {/* Content */}
@@ -299,9 +308,6 @@ export default function Home() {
                   </span>
                   <h3 className="text-xl font-extrabold text-white">{star.name}</h3>
                   <p className="text-sm text-amber-100 mt-1">{star.result}</p>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center z-0">
-                  <span className="text-white/20 text-sm font-medium">Student Photo</span>
                 </div>
               </div>
             ))}
@@ -313,51 +319,6 @@ export default function Home() {
               className="inline-flex items-center gap-2 text-sm font-bold text-brand-navy hover:text-[#002244] transition-colors"
             >
               View All Achievers <ArrowRight className="w-4 h-4 text-brand-gold" />
-            </Link>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── FACULTY ──────────────────────────────────────────────────── */}
-      <section className="py-20 lg:py-28 bg-brand-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-gold mb-3">Team</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy tracking-tight mb-4">
-              Meet Our Visionaries
-            </h2>
-            <p className="text-slate-600 text-base leading-relaxed">
-              Mentors who don't just teach — they inspire and guide you to your true potential.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { name: "Dr. Vikram K.", title: "Founder · Physics HOD", desc: "20+ years of academic excellence. Ex-IITian with a passion for simplified physics.", shade: "bg-slate-300" },
-              { name: "Prof. Ananya S.", title: "Biology Expert", desc: "Renowned author & mentor. Guided 500+ students to premier medical colleges.", shade: "bg-slate-400" },
-              { name: "Mr. Rajiv M.", title: "Chemistry Specialist", desc: "Known for innovative teaching & flawless organic chemistry breakdown.", shade: "bg-slate-300" },
-              { name: "Mrs. Shreya V.", title: "Mathematics HOD", desc: "Gold medalist with a unique approach to high-speed calculus & algebra.", shade: "bg-slate-400" },
-            ].map((faculty) => (
-              <div key={faculty.name} className="text-center group">
-                <div className={`relative w-full aspect-square rounded-2xl overflow-hidden ${faculty.shade} mb-4 flex items-center justify-center border border-slate-200`}>
-                  <span className="text-white/30 text-xs font-medium">Photo</span>
-                  <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/10 transition-colors duration-300 rounded-2xl" />
-                </div>
-                <h3 className="text-sm font-bold text-brand-navy">{faculty.name}</h3>
-                <p className="text-xs text-brand-navy/70 font-semibold mt-0.5 mb-2">{faculty.title}</p>
-                <p className="text-xs text-slate-500 leading-relaxed hidden sm:block">{faculty.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link
-              href="/faculty"
-              className="inline-flex items-center gap-2 text-sm font-bold text-brand-navy hover:text-[#002244] transition-colors"
-            >
-              View Full Directory <ArrowRight className="w-4 h-4 text-brand-gold" />
             </Link>
           </div>
 
@@ -389,13 +350,13 @@ export default function Home() {
               },
               {
                 name: "Dr. Sunita Sharma",
-                role: "Parent of JEE Aspirant",
+                role: "Parent of 12th Board Aspirant",
                 text: "VK Academy changed my son's approach to learning. The small batch size of 15 students ensures the teachers can clear doubts immediately. Extremely satisfied!",
               },
               {
                 name: "Sneha Patel",
-                role: "NEET Achiever (680/720)",
-                text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to crack NEET on my first attempt.",
+                role: "12th Board Topper (96.4%)",
+                text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to score high on my board exams.",
               },
             ].concat([
               {
@@ -405,13 +366,13 @@ export default function Home() {
               },
               {
                 name: "Dr. Sunita Sharma",
-                role: "Parent of JEE Aspirant",
+                role: "Parent of 12th Board Aspirant",
                 text: "VK Academy changed my son's approach to learning. The small batch size of 15 students ensures the teachers can clear doubts immediately. Extremely satisfied!",
               },
               {
                 name: "Sneha Patel",
-                role: "NEET Achiever (680/720)",
-                text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to crack NEET on my first attempt.",
+                role: "12th Board Topper (96.4%)",
+                text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to score high on my board exams.",
               },
             ]).map((rev, idx) => (
               <div
@@ -510,9 +471,12 @@ export default function Home() {
             <Button href="/batches" variant="accent">
               Explore Batches
             </Button>
-            <Button href="/contact" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
+            <Link 
+              href="/contact" 
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 tracking-wide border border-white text-white hover:bg-white/10 bg-transparent"
+            >
               Contact Admissions
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

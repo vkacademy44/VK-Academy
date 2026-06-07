@@ -48,14 +48,15 @@ export default function ContactPage() {
                     <Phone className="w-6 h-6 text-brand-gold" />
                   </div>
                   <div>
-                    <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Phone Numbers</h5>
+                    <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Phone Number</h5>
                     <p className="text-brand-navy font-semibold text-sm leading-relaxed">
-                      +91 8356992905<br />
-                      +91 9653235975
+                      <a href="tel:8356992905" className="hover:text-brand-gold transition-colors">
+                        +91 83569 92905
+                      </a>
                     </p>
                   </div>
                 </div>
- 
+
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-xl bg-brand-gold/10 text-brand-navy shrink-0 border border-brand-gold/30">
                     <Mail className="w-6 h-6 text-brand-gold" />
@@ -63,8 +64,9 @@ export default function ContactPage() {
                   <div>
                     <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Email Address</h5>
                     <p className="text-brand-navy font-semibold text-sm leading-relaxed">
-                      info@vkacademy.in<br />
-                      admissions@vkacademy.in
+                      <a href="mailto:vkacademy44@gmail.com" className="hover:text-brand-gold transition-colors">
+                        vkacademy44@gmail.com
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -125,8 +127,6 @@ export default function ContactPage() {
                       <option value="">Select a program</option>
                       <option value="school">School Section (Std 5th to 10th)</option>
                       <option value="science-11-12">11th & 12th Science Coaching</option>
-                      <option value="jee">IIT-JEE Mains Preparation</option>
-                      <option value="neet">NEET Entrance Preparation</option>
                       <option value="cet">MHT-CET Entrance Preparation</option>
                     </select>
                   </div>

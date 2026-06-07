@@ -25,7 +25,7 @@ export default function FacultyPage() {
           
           {/* Department: Physics & Math */}
           <div className="mb-20">
-            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Department of Engineering (JEE/CET)</h2>
+            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Class 5 to 10</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
               <VisionaryCard 
                 name="Dr. Vikram K."
@@ -56,7 +56,7 @@ export default function FacultyPage() {
 
           {/* Department: Medical */}
           <div>
-            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Department of Medical (NEET)</h2>
+            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Class 11 and 12</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
               <VisionaryCard 
                 name="Prof. Ananya S."

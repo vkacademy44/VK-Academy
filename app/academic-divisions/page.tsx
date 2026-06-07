@@ -142,7 +142,7 @@ export default function AcademicDivisionsPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">JEE Mains (Engineering Entrance) & NEET (Medical Entrance) Preparation.</span>
+                  <span className="text-slate-700 font-semibold text-sm">Class 11 and 12 Board Exams & MHT-CET Preparation.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
