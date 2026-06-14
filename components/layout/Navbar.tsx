@@ -4,7 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Button from "../ui/Button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, LayoutGrid, Calendar, Trophy, Phone } from "lucide-react";
+
+const mobileNavLinks = [
+  { name: "Home",      path: "/",                  icon: Home },
+  { name: "Divisions", path: "/academic-divisions", icon: LayoutGrid },
+  { name: "Batches",   path: "/batches",            icon: Calendar },
+  { name: "Toppers",   path: "/wall-of-fame",       icon: Trophy },
+  { name: "Contact",   path: "/contact",            icon: Phone },
+];
 
 
 const navLinks = [
@@ -55,7 +63,7 @@ export default function Navbar() {
                 />
               </div>
               <span className="text-lg font-extrabold text-brand-navy tracking-tight">
-                Academy
+                Vk Academy
               </span>
             </Link>
 
@@ -164,6 +172,42 @@ export default function Navbar() {
           </Button>
         </div>
       </div>
+
+      {/* ── MOBILE BOTTOM FLOATING NAV BAR ────────────────────────────── */}
+      <nav
+        className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50"
+        aria-label="Mobile bottom navigation"
+      >
+        <div
+          className="flex items-center gap-1 px-3 py-2 rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,51,102,0.18)]"
+          style={{
+            background: "rgba(255,255,255,0.72)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+          }}
+        >
+          {mobileNavLinks.map((link) => {
+            const isActive = pathname === link.path;
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.name}
+                href={link.path}
+                className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 min-w-[52px] ${
+                  isActive
+                    ? "bg-[#003366] text-white shadow-sm"
+                    : "text-slate-500 hover:text-[#003366] hover:bg-slate-100/60"
+                }`}
+              >
+                <Icon className={`w-5 h-5 ${isActive ? "text-[#FFB300]" : ""}`} />
+                <span className="text-[10px] font-bold tracking-wide leading-none">
+                  {link.name}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </>
   );
 }

@@ -2,6 +2,8 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { Users, BookOpen, LineChart, Star, ArrowRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import KnowledgeTreeJourney from "@/components/ui/KnowledgeTreeJourney";
+import HeroCarousel from "@/components/ui/HeroCarousel";
 
 export default function Home() {
   return (
@@ -66,37 +68,17 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right – hero image */}
+            {/* Right – auto-swiping hero carousel */}
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[420px] aspect-[4/5] bg-brand-light rounded-3xl overflow-hidden shadow-[0_24px_80px_rgba(13,27,42,0.12)]">
-                <Image
-                  src="/hero.png"
-                  alt="VK Academy Students"
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 420px"
-                />
-                {/* Floating badge */}
-                <div className="absolute bottom-5 left-5 right-5 bg-white/98 p-4 rounded-2xl shadow-lg border border-brand-gold/30">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-brand-gold/10 text-brand-navy shrink-0">
-                      🛡️
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-brand-navy">Certified Coaching</p>
-                      <p className="text-xs text-slate-500 mt-0.5 leading-snug">
-                        Guided by industry's most respected masters and subject matter experts.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <HeroCarousel />
             </div>
 
           </div>
         </div>
       </section>
+
+      {/* ── KNOWLEDGE TREE JOURNEY ─────────────────────────────────────── */}
+      <KnowledgeTreeJourney />
 
       {/* ── COURSES SECTION ────────────────────────────────────────────── */}
       <section className="py-20 lg:py-28 bg-white border-b border-slate-100">
@@ -190,12 +172,6 @@ export default function Home() {
             {/* Left Column: Before Transformation */}
             <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-300">
               <div className="space-y-4">
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-rose-50 text-rose-600 text-xs font-bold uppercase tracking-wider rounded-full border border-rose-100">
-                  ❌ 9th Standard (Before VK Academy)
-                </span>
-                <p className="text-slate-500 text-xs leading-relaxed font-semibold">
-                  Traditional rote learning methods and unstructured schedule leading to average conceptual understanding.
-                </p>
                 <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center">
                   <Image
                     src="/images/before_vk.png"
@@ -241,12 +217,7 @@ export default function Home() {
             <div className="bg-white border-2 border-brand-gold rounded-3xl p-6 shadow-md flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none" />
               <div className="space-y-4">
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-brand-gold/10 text-brand-navy text-xs font-bold uppercase tracking-wider rounded-full border border-brand-gold/30">
-                  <TrendingUp className="w-3.5 h-3.5 text-brand-navy fill-brand-navy" /> 🏆 10th Board Results (After VK Academy)
-                </span>
-                <p className="text-slate-500 text-xs leading-relaxed font-semibold">
-                  Conceptual clarity, robust exam strategies, and confidence to secure top board ranks.
-                </p>
+    
                 <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-brand-gold/20 bg-brand-light flex items-center justify-center">
                   <Image
                     src="/images/after_vk.png"

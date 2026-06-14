@@ -73,9 +73,9 @@ export default function Footer() {
             </h3>
             <div className="space-y-3 text-sm text-slate-300">
               <p className="leading-relaxed">
-                Shop No. 4, M. N. Yadav Bhavan,<br />
-                Mohili Village Pipeline, Above Jethva Tailor,<br />
-                Mumbai - 400072
+                Shop No: 4, M. N. Yadav Bhavan,<br />
+                Mohili Village Pipeline, above Jethva Tailor,<br />
+                Mumbai, Maharashtra 400072
               </p>
               <p className="space-y-1">
                 <a href="tel:8356992905" className="block hover:text-brand-gold transition-colors">
@@ -87,6 +87,42 @@ export default function Footer() {
                   vkacademy44@gmail.com
                 </a>
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Campus Map ──────────────────────────────────────── */}
+        <div className="mb-10">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+            Find Us
+          </h3>
+          <div className="relative rounded-2xl overflow-hidden border border-slate-700 h-[220px] sm:h-[280px] w-full">
+            {/* Map iframe — grayscale to match dark footer, lifts on hover */}
+            <iframe
+              src="https://maps.google.com/maps?q=19.100898893729603,72.89231479615131&t=&z=17&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="VK Academy Location Map"
+              className="absolute inset-0 grayscale hover:grayscale-0 transition-all duration-700"
+            />
+            {/* Location card overlay */}
+            <div className="absolute top-3 left-3 bg-brand-navy/95 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-slate-600 z-20 max-w-[220px] hidden sm:block">
+              <p className="text-xs font-extrabold text-white mb-0.5">📍 VK Academy</p>
+              <p className="text-[11px] leading-relaxed text-slate-300">
+                Shop No: 4, M. N. Yadav Bhavan, Mohili Village Pipeline, above Jethva Tailor, Mumbai, Maharashtra 400072
+              </p>
+              <a
+                href="https://www.google.com/maps?q=19.100898893729603,72.89231479615131"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-1.5 text-[10px] font-bold text-brand-gold hover:underline"
+              >
+                Open in Google Maps ↗
+              </a>
             </div>
           </div>
         </div>

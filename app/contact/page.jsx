@@ -36,9 +36,9 @@ export default function ContactPage() {
                   <div>
                     <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Campus Address</h5>
                     <p className="text-brand-navy font-semibold text-sm leading-relaxed">
-                      Shop No. 4, M. N. Yadav Bhavan,<br />
-                      Mohili Village Pipeline, Above Jethva Tailor,<br />
-                      Mumbai - 400072
+                      Shop No: 4, M. N. Yadav Bhavan,<br />
+                      Mohili Village Pipeline, above Jethva Tailor,<br />
+                      Mumbai, Maharashtra 400072
                     </p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ export default function ContactPage() {
             
             {/* Live Google Maps iFrame matching the exact Mumbai address */}
             <iframe 
-              src="https://maps.google.com/maps?q=Shop%20No%205,%20Saraswati%20Academy,%20Sai%20Shakti%20HSG,%20Pipe%20Line%20Rd,%20Pereira%20Wadi,%20Saki%20Naka,%20Mumbai&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+              src="https://maps.google.com/maps?q=19.100898893729603,72.89231479615131&t=&z=17&ie=UTF8&iwloc=&output=embed" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
@@ -167,7 +167,7 @@ export default function ContactPage() {
             <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-xl border border-white/20 z-20 max-w-sm hidden md:block">
               <h5 className="text-lg font-extrabold text-brand-navy mb-1">Visit Our Campus</h5>
               <p className="text-sm leading-relaxed text-slate-500 font-medium">
-                Shop No. 4, M. N. Yadav Bhavan, Mohili Village Pipeline, Above Jethva Tailor, Mumbai - 400072
+                Shop No: 4, M. N. Yadav Bhavan, Mohili Village Pipeline, above Jethva Tailor, Mumbai, Maharashtra 400072
               </p>
             </div>
  
