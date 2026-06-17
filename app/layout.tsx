@@ -4,16 +4,33 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp"; 
+import { getSiteSettings } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
 
 const jakarta = Plus_Jakarta_Sans({ 
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"] 
 });
 
-export const metadata: Metadata = {
-  title: "VK Academy | Build Your Future",
-  description: "Experience world-class coaching with modern technology.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings().catch(() => null);
+  if (!settings) {
+    return {
+      title: "VK Academy | Build Your Future",
+      description: "Experience world-class coaching with modern technology.",
+    };
+  }
+
+  const ogUrl = settings.ogImage ? urlFor(settings.ogImage).url() : undefined;
+
+  return {
+    title: settings.metaTitle || settings.instituteName || "VK Academy",
+    description: settings.metaDescription || settings.tagline || "Experience world-class coaching with modern technology.",
+    openGraph: ogUrl ? {
+      images: [{ url: ogUrl }],
+    } : undefined,
+  };
+}
 
 export default function RootLayout({
   children,
@@ -23,10 +40,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jakarta.className} min-h-screen flex flex-col antialiased`}>
-        <Navbar />
+        <div data-site-chrome="navbar"><Navbar /></div>
         <main className="flex-grow pb-20 lg:pb-0">{children}</main>
-        <FloatingWhatsApp />
-        <Footer />
+        <div data-site-chrome="whatsapp"><FloatingWhatsApp /></div>
+        <div data-site-chrome="footer"><Footer /></div>
 
         {/*
           ── PREMIUM VISUAL OVERLAYS ─────────────────────────────────
@@ -39,6 +56,7 @@ export default function RootLayout({
                real DOM (Chrome supports this; data-URI SVG filters are blocked) */}
         <svg
           aria-hidden="true"
+          data-site-chrome="overlay"
           focusable="false"
           style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}
         >
@@ -57,13 +75,13 @@ export default function RootLayout({
         </svg>
 
         {/* 2. Grain texture — references the DOM filter above */}
-        <div aria-hidden="true" className="grain-overlay" />
+        <div aria-hidden="true" data-site-chrome="overlay" className="grain-overlay" />
 
         {/* 3. Grid lines + dot grid */}
-        <div aria-hidden="true" className="dot-grid-overlay" />
+        <div aria-hidden="true" data-site-chrome="overlay" className="dot-grid-overlay" />
 
         {/* 4. Edge vignette */}
-        <div aria-hidden="true" className="vignette-overlay" />
+        <div aria-hidden="true" data-site-chrome="overlay" className="vignette-overlay" />
       </body>
     </html>
   );

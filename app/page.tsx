@@ -4,78 +4,134 @@ import { Users, BookOpen, LineChart, Star, ArrowRight, TrendingUp } from "lucide
 import Link from "next/link";
 import KnowledgeTreeJourney from "@/components/ui/KnowledgeTreeJourney";
 import HeroCarousel from "@/components/ui/HeroCarousel";
+import AchieverCard from "@/components/ui/AchieverCard";
+import HeroSection from "@/components/ui/HeroSection";
+import { 
+  getFeaturedAchievers, 
+  getActiveHeroSlides, 
+  getTestimonials, 
+  getSiteSettings 
+} from "@/sanity/lib/queries";
 
-export default function Home() {
+
+export default async function Home() {
+  // Fetch homepage data from Sanity in parallel
+  const [featuredAchievers, heroSlides, testimonials, settings] = await Promise.all([
+    getFeaturedAchievers().catch(() => []),
+    getActiveHeroSlides().catch(() => []),
+    getTestimonials().catch(() => []),
+    getSiteSettings().catch(() => null),
+  ]);
+
+  // Static fallback data shown when Sanity has no featured documents yet
+  const fallbackStars = [
+    { name: "Mrunal Sawant", result: "10th Board · 90.20%", tag: "SSC Topper", imageSrc: "/images/3.2026.jpeg" },
+    { name: "Neel Vadke",    result: "10th Board · 90.00%", tag: "SSC Topper", imageSrc: "/images/2.2026.jpeg" },
+    { name: "Mayank Mahajan",result: "10th Board · 89.80%", tag: "SSC Topper", imageSrc: "/images/4.2026.jpeg" },
+    { name: "Rose Joseph",   result: "10th Board · 85.40%", tag: "SSC Topper", imageSrc: "/images/1.2026.jpeg" },
+  ];
+
+  const useSanityData = featuredAchievers.length > 0;
+
+  // Prepare testimonials tracks
+  const hasTestimonials = testimonials.length > 0;
+  
+  const evenReviews = testimonials.filter((_, i) => i % 2 === 0);
+  const oddReviews = testimonials.length > 1 
+    ? testimonials.filter((_, i) => i % 2 !== 0) 
+    : testimonials;
+
+  const fillMarquee = (items: typeof testimonials, minCount = 4) => {
+    if (items.length === 0) return [];
+    let result = [...items];
+    while (result.length < minCount) {
+      result = result.concat(items);
+    }
+    return result.concat(result);
+  };
+
+  const track1 = fillMarquee(evenReviews);
+  const track2 = fillMarquee(oddReviews);
+
   return (
     <div className="w-full bg-white">
 
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-        {/* Subtle grid background */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 70% 30%, #EFF6FF 0%, transparent 55%), radial-gradient(circle at 10% 80%, #F8FAFC 0%, transparent 50%)",
-          }}
+      {heroSlides.length > 0 ? (
+        <HeroSection 
+          slides={heroSlides} 
+          studentsEnrolled={settings?.studentsEnrolled}
+          successRate={settings?.successRate}
+          googleRating={settings?.googleRating}
         />
+      ) : (
+        <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+          {/* Subtle grid background */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 70% 30%, #EFF6FF 0%, transparent 55%), radial-gradient(circle at 10% 80%, #F8FAFC 0%, transparent 50%)",
+            }}
+          />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
-            {/* Left */}
-            <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="inline-flex items-center gap-2 bg-[#FFB300]/10 text-brand-navy text-xs font-bold px-4 py-2 rounded-full w-fit mb-6 tracking-wide border border-brand-gold/30">
-                <Star className="w-3.5 h-3.5 fill-brand-gold text-brand-gold" />
-                Admissions Open 2026–27
+              {/* Left */}
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                <div className="inline-flex items-center gap-2 bg-[#FFB300]/10 text-brand-navy text-xs font-bold px-4 py-2 rounded-full w-fit mb-6 tracking-wide border border-brand-gold/30">
+                  <Star className="w-3.5 h-3.5 fill-brand-gold text-brand-gold" />
+                  Admissions Open 2026–27
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-brand-navy leading-[1.1] mb-6 tracking-tight">
+                  "Dare to Dream,<br />
+                  <span className="text-brand-gold">Learn to Excel"</span>
+                </h1>
+
+                <p className="text-base sm:text-lg text-slate-600 max-w-lg mb-10 leading-relaxed font-medium">
+                  Empowering Students from Std 5th to 12th Science with Expert Guidance for CET & Board Exams. Built on strong PCM/PCB foundations.
+                </p>
+
+                <div className="flex flex-wrap gap-3 mb-14">
+                  <Button href="/contact" variant="accent">
+                    Enroll Now
+                  </Button>
+                  <Button href="tel:8356992905" variant="outline">
+                    📞 Call Now
+                  </Button>
+                </div>
+
+                {/* Stats */}
+                <div className="flex items-center gap-10 border-t border-slate-200 pt-8">
+                  <div>
+                    <p className="text-3xl font-extrabold text-brand-navy tracking-tight">100+</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Students Enrolled</p>
+                  </div>
+                  <div className="h-8 w-px bg-slate-200" />
+                  <div>
+                    <p className="text-3xl font-extrabold text-brand-navy tracking-tight">98%</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Success Rate</p>
+                  </div>
+                  <div className="h-8 w-px bg-slate-200" />
+                  <div>
+                    <p className="text-3xl font-extrabold text-brand-navy tracking-tight">5.0</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Google Rating</p>
+                  </div>
+                </div>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-brand-navy leading-[1.1] mb-6 tracking-tight">
-                "Dare to Dream,<br />
-                <span className="text-brand-gold">Learn to Excel"</span>
-              </h1>
-
-              <p className="text-base sm:text-lg text-slate-600 max-w-lg mb-10 leading-relaxed font-medium">
-                Empowering Students from Std 5th to 12th Science with Expert Guidance for CET & Board Exams. Built on strong PCM/PCB foundations.
-              </p>
-
-              <div className="flex flex-wrap gap-3 mb-14">
-                <Button href="/contact" variant="accent">
-                  Enroll Now
-                </Button>
-                <Button href="tel:8356992905" variant="outline">
-                  📞 Call Now
-                </Button>
+              {/* Right – auto-swiping hero carousel */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                <HeroCarousel />
               </div>
 
-              {/* Stats */}
-              <div className="flex items-center gap-10 border-t border-slate-200 pt-8">
-                <div>
-                  <p className="text-3xl font-extrabold text-brand-navy tracking-tight">100+</p>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Students Enrolled</p>
-                </div>
-                <div className="h-8 w-px bg-slate-200" />
-                <div>
-                  <p className="text-3xl font-extrabold text-brand-navy tracking-tight">98%</p>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Success Rate</p>
-                </div>
-                <div className="h-8 w-px bg-slate-200" />
-                <div>
-                  <p className="text-3xl font-extrabold text-brand-navy tracking-tight">5.0</p>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Google Rating</p>
-                </div>
-              </div>
             </div>
-
-            {/* Right – auto-swiping hero carousel */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
-              <HeroCarousel />
-            </div>
-
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── KNOWLEDGE TREE JOURNEY ─────────────────────────────────────── */}
       <KnowledgeTreeJourney />
@@ -250,39 +306,36 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { name: "Mrunal Sawant", result: "10th Board · 90.20%", tag: "SSC Topper", imageSrc: "/images/3.2026.jpeg" },
-              { name: "Neel Vadke", result: "10th Board · 90.00%", tag: "SSC Topper", imageSrc: "/images/2.2026.jpeg" },
-              { name: "Mayank Mahajan", result: "10th Board · 89.80%", tag: "SSC Topper", imageSrc: "/images/4.2026.jpeg" },
-              { name: "Rose Joseph", result: "10th Board · 85.40%", tag: "SSC Topper", imageSrc: "/images/1.2026.jpeg" },
-            ].map((star, i) => (
-              <div
-                key={star.name}
-                className={`relative h-72 rounded-2xl overflow-hidden group ${
-                  ["bg-slate-700", "bg-slate-800", "bg-slate-900", "bg-slate-950"][i % 4]
-                }`}
-              >
-                {/* Image */}
-                <Image
-                  src={star.imageSrc}
-                  alt={star.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105 z-0"
-                  sizes="(max-width: 768px) 100vw, 350px"
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 w-full p-6 z-20">
-                  <span className="inline-block px-2.5 py-1 bg-brand-gold text-brand-navy text-[10px] font-bold uppercase tracking-widest rounded mb-2">
-                    {star.tag}
-                  </span>
-                  <h3 className="text-xl font-extrabold text-white">{star.name}</h3>
-                  <p className="text-sm text-amber-100 mt-1">{star.result}</p>
-                </div>
-              </div>
-            ))}
+            {useSanityData
+              ? featuredAchievers.map((achiever) => (
+                  <AchieverCard key={achiever._id} achiever={achiever} size="sm" />
+                ))
+              : fallbackStars.map((star, i) => (
+                  <div
+                    key={star.name}
+                    className={`relative h-72 rounded-2xl overflow-hidden group ${
+                      ["bg-slate-700", "bg-slate-800", "bg-slate-900", "bg-slate-950"][i % 4]
+                    }`}
+                  >
+                    <Image
+                      src={star.imageSrc}
+                      alt={star.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105 z-0"
+                      sizes="(max-width: 768px) 100vw, 350px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+                    <div className="absolute bottom-0 left-0 w-full p-6 z-20">
+                      <span className="inline-block px-2.5 py-1 bg-brand-gold text-brand-navy text-[10px] font-bold uppercase tracking-widest rounded mb-2">
+                        {star.tag}
+                      </span>
+                      <h3 className="text-xl font-extrabold text-white">{star.name}</h3>
+                      <p className="text-sm text-amber-100 mt-1">{star.result}</p>
+                    </div>
+                  </div>
+                ))}
           </div>
+
 
           <div className="mt-10 text-center">
             <Link
@@ -313,56 +366,62 @@ export default function Home() {
         {/* Scrolling review track 1 (Scrolls Left) */}
         <div className="relative w-full overflow-hidden py-4 pause-marquee">
           <div className="animate-marquee gap-6 flex">
-            {[
+            {(hasTestimonials ? track1 : [
               {
                 name: "Ritesh Yadav",
                 role: "Student (10th Board · 95.6%)",
                 text: "The study materials and mock tests provided by VK Academy were extremely helpful. Vikram Sir's physics tips helped me secure 98 in physics!",
+                rating: 5,
               },
               {
                 name: "Dr. Sunita Sharma",
                 role: "Parent of 12th Board Aspirant",
                 text: "VK Academy changed my son's approach to learning. The small batch size of 15 students ensures the teachers can clear doubts immediately. Extremely satisfied!",
+                rating: 5,
               },
               {
                 name: "Sneha Patel",
                 role: "12th Board Topper (96.4%)",
                 text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to score high on my board exams.",
+                rating: 5,
               },
             ].concat([
               {
                 name: "Ritesh Yadav",
                 role: "Student (10th Board · 95.6%)",
                 text: "The study materials and mock tests provided by VK Academy were extremely helpful. Vikram Sir's physics tips helped me secure 98 in physics!",
+                rating: 5,
               },
               {
                 name: "Dr. Sunita Sharma",
                 role: "Parent of 12th Board Aspirant",
                 text: "VK Academy changed my son's approach to learning. The small batch size of 15 students ensures the teachers can clear doubts immediately. Extremely satisfied!",
+                rating: 5,
               },
               {
                 name: "Sneha Patel",
                 role: "12th Board Topper (96.4%)",
                 text: "Biology lectures by Ananya Ma'am were so descriptive and clear. The regular mock test series gave me the confidence to score high on my board exams.",
+                rating: 5,
               },
-            ]).map((rev, idx) => (
+            ])).map((rev: any, idx: number) => (
               <div
                 key={idx}
                 className="w-[380px] bg-brand-light p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-brand-gold/40 hover:shadow-md transition-all duration-300 shrink-0 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex gap-0.5 text-brand-gold mb-3">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(rev.rating || 5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-gold" />
                     ))}
                   </div>
                   <p className="text-slate-600 text-sm leading-relaxed font-medium italic">
-                    "{rev.text}"
+                    "{rev.reviewText || rev.text}"
                   </p>
                 </div>
                 <div className="mt-5 pt-4 border-t border-slate-200/60">
                   <p className="text-sm font-bold text-brand-navy">{rev.name}</p>
-                  <p className="text-xs font-semibold text-slate-400 mt-0.5">{rev.role}</p>
+                  <p className="text-xs font-semibold text-slate-400 mt-0.5">{rev.designation || rev.role}</p>
                 </div>
               </div>
             ))}
@@ -372,56 +431,62 @@ export default function Home() {
         {/* Scrolling review track 2 (Scrolls Right) */}
         <div className="relative w-full overflow-hidden py-4 pause-marquee mt-2">
           <div className="animate-marquee-reverse gap-6 flex">
-            {[
+            {(hasTestimonials ? track2 : [
               {
                 name: "Amit More",
                 role: "Student (12th Science)",
                 text: "Rajiv Sir's organic chemistry lectures are the best. I used to struggle with reactions, but the conceptual modules broke them down beautifully.",
+                rating: 5,
               },
               {
                 name: "Mrs. Rekha Joshi",
                 role: "Parent (10th Class Student)",
                 text: "Excellent coaching classes near Mohili Pipeline. The individual attention and regular parent-teacher meetings kept us in the loop throughout the year.",
+                rating: 5,
               },
               {
                 name: "Shubham Kadam",
                 role: "MHT-CET Ranker",
                 text: "Calculus and algebra became my strongest subjects thanks to Shreya Ma'am's shortcuts. VK Academy builds a solid foundation for both Boards and competitive exams.",
+                rating: 5,
               },
             ].concat([
               {
                 name: "Amit More",
                 role: "Student (12th Science)",
                 text: "Rajiv Sir's organic chemistry lectures are the best. I used to struggle with reactions, but the conceptual modules broke them down beautifully.",
+                rating: 5,
               },
               {
                 name: "Mrs. Rekha Joshi",
                 role: "Parent (10th Class Student)",
                 text: "Excellent coaching classes near Mohili Pipeline. The individual attention and regular parent-teacher meetings kept us in the loop throughout the year.",
+                rating: 5,
               },
               {
                 name: "Shubham Kadam",
                 role: "MHT-CET Ranker",
                 text: "Calculus and algebra became my strongest subjects thanks to Shreya Ma'am's shortcuts. VK Academy builds a solid foundation for both Boards and competitive exams.",
+                rating: 5,
               },
-            ]).map((rev, idx) => (
+            ])).map((rev: any, idx: number) => (
               <div
                 key={idx}
                 className="w-[380px] bg-brand-light p-6 rounded-2xl border border-slate-100 shadow-sm hover:border-brand-gold/40 hover:shadow-md transition-all duration-300 shrink-0 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex gap-0.5 text-brand-gold mb-3">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(rev.rating || 5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-gold" />
                     ))}
                   </div>
                   <p className="text-slate-600 text-sm leading-relaxed font-medium italic">
-                    "{rev.text}"
+                    "{rev.reviewText || rev.text}"
                   </p>
                 </div>
                 <div className="mt-5 pt-4 border-t border-slate-200/60">
                   <p className="text-sm font-bold text-brand-navy">{rev.name}</p>
-                  <p className="text-xs font-semibold text-slate-400 mt-0.5">{rev.role}</p>
+                  <p className="text-xs font-semibold text-slate-400 mt-0.5">{rev.designation || rev.role}</p>
                 </div>
               </div>
             ))}

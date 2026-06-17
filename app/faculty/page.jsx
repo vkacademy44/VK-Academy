@@ -1,6 +1,78 @@
 import VisionaryCard from "@/components/ui/VisionaryCard";
 import Button from "@/components/ui/Button";
-export default function FacultyPage() {
+import { getFaculty } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
+
+export default async function FacultyPage() {
+  const mentors = await getFaculty().catch(() => []);
+
+  const hasSanityMentors = mentors.length > 0;
+
+  // Filter sections
+  const schoolMentorsFromSanity = mentors.filter((m) => m.section === "school");
+  const collegeMentorsFromSanity = mentors.filter((m) => m.section === "college");
+
+  // Fallback Mock data
+  const schoolFallback = [
+    {
+      name: "Dr. Vikram K.",
+      designation: "Founder & Physics HOD",
+      description: "20+ years of academic excellence. Ex-IITian with a passion for simplified physics.",
+      subject: "Physics",
+      experience: "20+ years",
+    },
+    {
+      name: "Mrs. Shreya V.",
+      designation: "Mathematics HOD",
+      description: "Gold medalist with a unique approach to high-speed calculus and algebra solving.",
+      subject: "Mathematics",
+      experience: "10+ years",
+    },
+    {
+      name: "Mr. Amit D.",
+      designation: "Advanced Mathematics",
+      description: "Renowned for his problem-solving techniques in coordinate geometry and trigonometry.",
+      subject: "Mathematics",
+      experience: "8+ years",
+    },
+    {
+      name: "Dr. Rahul M.",
+      designation: "Physical Chemistry",
+      description: "Expert in breaking down complex thermodynamic equations into simple concepts.",
+      subject: "Chemistry",
+      experience: "12+ years",
+    }
+  ];
+
+  const collegeFallback = [
+    {
+      name: "Prof. Ananya S.",
+      designation: "Biology Expert (Botany)",
+      description: "Renowned author and mentor. Guided over 500+ students to premier medical colleges.",
+      subject: "Biology",
+      experience: "15+ years",
+    },
+    {
+      name: "Dr. Sneha P.",
+      designation: "Zoology HOD",
+      description: "Ex-AIIMS scholar focusing on human anatomy and conceptual clarity.",
+      subject: "Biology",
+      experience: "9+ years",
+    },
+    {
+      name: "Mr. Rajiv M.",
+      designation: "Organic Chemistry",
+      description: "Known for his innovative teaching methodologies and flawless reaction mechanism breakdowns.",
+      subject: "Chemistry",
+      experience: "11+ years",
+    }
+  ];
+
+  const schoolList = hasSanityMentors ? schoolMentorsFromSanity : schoolFallback;
+  const collegeList = hasSanityMentors ? collegeMentorsFromSanity : collegeFallback;
+
+  const placeholders = ["bg-slate-300", "bg-slate-400", "bg-slate-500", "bg-slate-600"];
+
   return (
     <div className="w-full bg-white">
       
@@ -23,61 +95,57 @@ export default function FacultyPage() {
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           
-          {/* Department: Physics & Math */}
-          <div className="mb-20">
-            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Class 5 to 10</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-              <VisionaryCard 
-                name="Dr. Vikram K."
-                title="Founder & Physics HOD"
-                description="20+ years of academic excellence. Ex-IITian with a passion for simplified physics."
-                imagePlaceholder="bg-slate-300"
-              />
-              <VisionaryCard 
-                name="Mrs. Shreya V."
-                title="Mathematics HOD"
-                description="Gold medalist with a unique approach to high-speed calculus and algebra solving."
-                imagePlaceholder="bg-slate-400"
-              />
-              <VisionaryCard 
-                name="Mr. Amit D."
-                title="Advanced Mathematics"
-                description="Renowned for his problem-solving techniques in coordinate geometry and trigonometry."
-                imagePlaceholder="bg-slate-300"
-              />
-              <VisionaryCard 
-                name="Dr. Rahul M."
-                title="Physical Chemistry"
-                description="Expert in breaking down complex thermodynamic equations into simple concepts."
-                imagePlaceholder="bg-slate-500"
-              />
-            </div>
-          </div>
+          {/* Department: School */}
+          {(schoolList.length > 0) && (
+            <div className="mb-20">
+              <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Class 5 to 10</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+                {schoolList.map((mentor, index) => {
+                  const photoUrl = mentor.photo ? urlFor(mentor.photo).url() : undefined;
+                  const combinedDesc = mentor.subject && mentor.experience
+                    ? `${mentor.description} (${mentor.subject} · ${mentor.experience})`
+                    : mentor.description;
 
-          {/* Department: Medical */}
-          <div>
-            <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Class 11 and 12</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-              <VisionaryCard 
-                name="Prof. Ananya S."
-                title="Biology Expert (Botany)"
-                description="Renowned author and mentor. Guided over 500+ students to premier medical colleges."
-                imagePlaceholder="bg-slate-400"
-              />
-              <VisionaryCard 
-                name="Dr. Sneha P."
-                title="Zoology HOD"
-                description="Ex-AIIMS scholar focusing on human anatomy and conceptual clarity."
-                imagePlaceholder="bg-slate-300"
-              />
-              <VisionaryCard 
-                name="Mr. Rajiv M."
-                title="Organic Chemistry"
-                description="Known for his innovative teaching methodologies and flawless reaction mechanism breakdowns."
-                imagePlaceholder="bg-slate-600"
-              />
+                  return (
+                    <VisionaryCard 
+                      key={mentor._id || index}
+                      name={mentor.name}
+                      title={mentor.designation}
+                      description={combinedDesc}
+                      imagePlaceholder={placeholders[index % placeholders.length]}
+                      photoUrl={photoUrl}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Department: College */}
+          {(collegeList.length > 0) && (
+            <div>
+              <h2 className="text-2xl font-extrabold text-brand-navy mb-10 border-b border-slate-100 pb-4">Class 11 and 12</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+                {collegeList.map((mentor, index) => {
+                  const photoUrl = mentor.photo ? urlFor(mentor.photo).url() : undefined;
+                  const combinedDesc = mentor.subject && mentor.experience
+                    ? `${mentor.description} (${mentor.subject} · ${mentor.experience})`
+                    : mentor.description;
+
+                  return (
+                    <VisionaryCard 
+                      key={mentor._id || index}
+                      name={mentor.name}
+                      title={mentor.designation}
+                      description={combinedDesc}
+                      imagePlaceholder={placeholders[(index + 1) % placeholders.length]}
+                      photoUrl={photoUrl}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
         </div>
       </section>
@@ -94,4 +162,4 @@ export default function FacultyPage() {
 
     </div>
   );
-}
+}

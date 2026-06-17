@@ -5,16 +5,27 @@ interface VisionaryCardProps {
   title: string;
   description: string;
   imagePlaceholder: string;
+  photoUrl?: string;
 }
 
-export default function VisionaryCard({ name, title, description, imagePlaceholder }: VisionaryCardProps) {
+export default function VisionaryCard({ name, title, description, imagePlaceholder, photoUrl }: VisionaryCardProps) {
   return (
     <div className="flex flex-col items-center text-center group">
       {/* Circular Image Container */}
       <div className={`relative w-40 h-40 rounded-full overflow-hidden mb-6 border-4 border-white shadow-[0_8px_30px_rgb(0,0,0,0.08)] group-hover:-translate-y-2 transition-transform duration-300 ${imagePlaceholder}`}>
-        <div className="absolute inset-0 flex items-center justify-center">
-           <span className="text-white/70 font-medium text-xs">Faculty Photo</span>
-        </div>
+        {photoUrl ? (
+          <Image
+            src={photoUrl}
+            alt={name}
+            fill
+            className="object-cover"
+            sizes="160px"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+             <span className="text-white/70 font-medium text-xs">Faculty Photo</span>
+          </div>
+        )}
       </div>
       
       {/* Content */}
@@ -25,4 +36,4 @@ export default function VisionaryCard({ name, title, description, imagePlacehold
       </p>
     </div>
   );
-}
+}

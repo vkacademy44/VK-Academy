@@ -1,46 +1,58 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { Calendar, Clock, MapPin, Users, ArrowRight } from "lucide-react";
+import { getBatches } from "@/sanity/lib/queries";
 
-export default function BatchesPage() {
-  // Mock data for upcoming batches
-  const collegeBatches = [
+export default async function BatchesPage() {
+  const batches = await getBatches().catch(() => []);
+
+  const hasSanityBatches = batches.length > 0;
+
+  // Filter batches if present in Sanity
+  const collegeBatchesFromSanity = batches.filter((b) => b.category === "college");
+  const schoolBatchesFromSanity = batches.filter((b) => b.category === "school");
+
+  // Fallback Mock data for upcoming batches
+  const collegeBatchesFallback = [
     {
-      name: "Class 12 Science (Board + MHT-CET 2027)",
-      type: "1-Year Regular Classroom",
+      title: "Class 12 Science (Board + MHT-CET 2027)",
+      batchType: "1-Year Regular Classroom",
       startDate: "April 06, 2026",
-      timing: "04:00 PM - 08:00 PM (Mon-Fri)",
-      seats: "Filling Fast",
-      location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
+      schedule: "04:00 PM - 08:00 PM (Mon-Fri)",
+      status: "Filling Fast",
+      venue: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     },
     {
-      name: "Class 11 Science (Board + MHT-CET 2028)",
-      type: "2-Year Regular Classroom",
+      title: "Class 11 Science (Board + MHT-CET 2028)",
+      batchType: "2-Year Regular Classroom",
       startDate: "April 15, 2026",
-      timing: "04:00 PM - 07:30 PM (Mon-Sat)",
-      seats: "Admissions Open",
-      location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
+      schedule: "04:00 PM - 07:30 PM (Mon-Sat)",
+      status: "Admissions Open",
+      venue: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     }
   ];
 
-  const schoolBatches = [
+  const schoolBatchesFallback = [
     {
-      name: "Class 9th & 10th Board Batch",
-      type: "Regular Board Prep",
+      title: "Class 9th & 10th Board Batch",
+      batchType: "Regular Board Prep",
       startDate: "April 06, 2026",
-      timing: "05:00 PM - 07:30 PM (Mon-Fri)",
-      seats: "Filling Fast",
-      location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
+      schedule: "05:00 PM - 07:30 PM (Mon-Fri)",
+      status: "Filling Fast",
+      venue: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     },
     {
-      name: "Class 5th to 8th Foundation Batch",
-      type: "Concept Building & School Prep",
+      title: "Class 5th to 8th Foundation Batch",
+      batchType: "Concept Building & School Prep",
       startDate: "April 10, 2026",
-      timing: "04:00 PM - 06:00 PM (Mon-Fri)",
-      seats: "Limited Seats",
-      location: "Shop No. 4, Mohili Village Pipeline, Mumbai",
+      schedule: "04:00 PM - 06:00 PM (Mon-Fri)",
+      status: "Limited Seats",
+      venue: "Shop No. 4, Mohili Village Pipeline, Mumbai",
     }
   ];
+
+  const collegeList = hasSanityBatches ? collegeBatchesFromSanity : collegeBatchesFallback;
+  const schoolList = hasSanityBatches ? schoolBatchesFromSanity : schoolBatchesFallback;
 
   return (
     <div className="w-full bg-brand-light min-h-screen pb-24 border-t border-slate-100">
@@ -61,32 +73,44 @@ export default function BatchesPage() {
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-16 space-y-20">
         
         {/* College Section */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Class 11 and 12 Science</h2>
-            <div className="h-[1px] flex-grow bg-slate-200 mt-2"></div>
+        {(collegeList.length > 0) && (
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Class 11 and 12 Science</h2>
+              <div className="h-[1px] flex-grow bg-slate-200 mt-2"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {collegeList.map((batch, index) => (
+                <BatchCard 
+                  key={batch._id || index} 
+                  {...batch} 
+                  badgeColor="bg-blue-50 text-brand-navy border border-blue-200" 
+                />
+              ))}
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {collegeBatches.map((batch, index) => (
-              <BatchCard key={index} {...batch} badgeColor="bg-blue-50 text-brand-navy border border-blue-200" />
-            ))}
-          </div>
-        </div>
+        )}
 
         {/* School Section */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Class 5 to 10 Secondary</h2>
-            <div className="h-[1px] flex-grow bg-slate-200 mt-2"></div>
+        {(schoolList.length > 0) && (
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-navy">Class 5 to 10 Secondary</h2>
+              <div className="h-[1px] flex-grow bg-slate-200 mt-2"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {schoolList.map((batch, index) => (
+                <BatchCard 
+                  key={batch._id || index} 
+                  {...batch} 
+                  badgeColor="bg-emerald-50 text-emerald-800 border border-emerald-200" 
+                />
+              ))}
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {schoolBatches.map((batch, index) => (
-              <BatchCard key={index} {...batch} badgeColor="bg-emerald-50 text-emerald-800 border border-emerald-200" />
-            ))}
-          </div>
-        </div>
+        )}
 
       </section>
 
@@ -116,19 +140,23 @@ export default function BatchesPage() {
 }
 
 // Reusable UI Component for the Batch Cards
-function BatchCard({ name, type, startDate, timing, seats, location, badgeColor }) {
+function BatchCard({ title, batchType, startDate, schedule, status, venue, buttonText, buttonLink, enquiryWhatsapp, badgeColor }) {
+  const finalLink = enquiryWhatsapp
+    ? `https://wa.me/${enquiryWhatsapp}?text=${encodeURIComponent(`Hi, I'm interested in the batch: ${title}`)}`
+    : (buttonLink || "/contact");
+
   return (
     <div className="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-shadow duration-300">
       
       <div className="flex justify-between items-start mb-6">
         <div>
           <span className={`inline-block px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mb-3 ${badgeColor}`}>
-            {type}
+            {batchType}
           </span>
-          <h3 className="text-xl font-extrabold text-brand-navy">{name}</h3>
+          <h3 className="text-xl font-extrabold text-brand-navy">{title}</h3>
         </div>
         <div className="flex items-center gap-1.5 bg-rose-50 text-rose-600 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wide shrink-0">
-          <Users className="w-3.5 h-3.5" /> {seats}
+          <Users className="w-3.5 h-3.5" /> {status}
         </div>
       </div>
 
@@ -149,7 +177,7 @@ function BatchCard({ name, type, startDate, timing, seats, location, badgeColor 
           </div>
           <div>
             <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Schedule</p>
-            <p className="text-sm font-bold text-brand-navy">{timing}</p>
+            <p className="text-sm font-bold text-brand-navy">{schedule}</p>
           </div>
         </div>
 
@@ -159,15 +187,15 @@ function BatchCard({ name, type, startDate, timing, seats, location, badgeColor 
           </div>
           <div>
             <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Venue</p>
-            <p className="text-sm font-bold text-brand-navy">{location}</p>
+            <p className="text-sm font-bold text-brand-navy">{venue}</p>
           </div>
         </div>
       </div>
 
-      <Button href="/contact" variant="outline" className="w-full justify-center group">
-        Enquire For This Batch <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+      <Button href={finalLink} variant="outline" className="w-full justify-center group">
+        {buttonText || "Enquire For This Batch"} <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
       </Button>
 
     </div>
   );
-}
+}

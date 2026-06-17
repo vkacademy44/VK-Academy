@@ -1,7 +1,12 @@
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 import { Calculator, Microscope, GraduationCap, Target, Brain, Activity, BarChart3 } from "lucide-react";
+import { getDivisions } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
 
-export default function AcademicDivisionsPage() {
+export default async function AcademicDivisionsPage() {
+  const divisions = await getDivisions().catch(() => []);
+
   return (
     <div className="w-full bg-white">
       
@@ -88,73 +93,143 @@ export default function AcademicDivisionsPage() {
       <section className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-24">
           
-          {/* School Division */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="flex items-center gap-3 text-brand-navy font-bold uppercase tracking-widest text-xs mb-4">
-                <GraduationCap className="w-5 h-5 text-brand-gold" /> School Section
-              </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy mb-6 tracking-tight">
-                Standard 5th to 10th
-              </h2>
-              <p className="text-slate-600 font-medium text-lg leading-relaxed mb-8">
-                Early standard coaching is the foundation of competitive academic success. Our comprehensive school coaching programs emphasize deep concept building, structured logical progression, and school board preparedness.
-              </p>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-3">
-                  <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">State Board & ICSE Board curricula.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">Personal Attention with strictly limited Small Batch Sizes.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">Consistent chapter-wise tests and performance analysis reports for parents.</span>
-                </li>
-              </ul>
-            </div>
-            <div className="order-1 lg:order-2 bg-slate-100 rounded-3xl aspect-[4/3] flex items-center justify-center text-slate-400 font-medium shadow-inner relative overflow-hidden border border-slate-200">
-              <span className="text-slate-500 font-bold text-sm">School Coaching Batch</span>
-            </div>
-          </div>
+          {divisions.length > 0 ? (
+            divisions.map((div, i) => {
+              const isSchool = div.sectionType === "school";
+              const isEven = i % 2 === 0;
 
-          {/* Science College Division */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-slate-100 rounded-3xl aspect-[4/3] flex items-center justify-center text-slate-400 font-medium shadow-inner relative overflow-hidden border border-slate-200">
-              <span className="text-slate-500 font-bold text-sm">Science College Coaching Batch</span>
-            </div>
-            <div>
-              <div className="flex items-center gap-3 text-brand-navy font-bold uppercase tracking-widest text-xs mb-4">
-                <Microscope className="w-5 h-5 text-brand-gold" /> College Section
+              const textBlock = (
+                <div>
+                  <div className="flex items-center gap-3 text-brand-navy font-bold uppercase tracking-widest text-xs mb-4">
+                    {isSchool ? (
+                      <GraduationCap className="w-5 h-5 text-brand-gold" />
+                    ) : (
+                      <Microscope className="w-5 h-5 text-brand-gold" />
+                    )}
+                    {isSchool ? "School Section" : "College Section"}
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy mb-6 tracking-tight">
+                    {div.title}
+                  </h2>
+                  <p className="text-slate-600 font-medium text-lg leading-relaxed mb-8">
+                    {div.description}
+                  </p>
+                  <ul className="space-y-4 mb-8">
+                    {(div.bulletPoints || []).map((bullet, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                        <span className="text-slate-700 font-semibold text-sm">{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+
+              const imageBlock = (
+                <div className="relative bg-slate-100 rounded-3xl aspect-[4/3] flex items-center justify-center text-slate-400 font-medium shadow-inner overflow-hidden border border-slate-200 w-full">
+                  {div.image ? (
+                    <Image
+                      src={urlFor(div.image).url()}
+                      alt={div.image.alt || div.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                    />
+                  ) : (
+                    <span className="text-slate-500 font-bold text-sm">
+                      {isSchool ? "School" : "Science College"} Coaching Batch
+                    </span>
+                  )}
+                </div>
+              );
+
+              return (
+                <div key={div._id} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  {isEven ? (
+                    <>
+                      <div className="order-2 lg:order-1">{textBlock}</div>
+                      <div className="order-1 lg:order-2">{imageBlock}</div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="order-1">{imageBlock}</div>
+                      <div className="order-2">{textBlock}</div>
+                    </>
+                  )}
+                </div>
+              );
+            })
+          ) : (
+            <>
+              {/* School Division (Fallback) */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="order-2 lg:order-1">
+                  <div className="flex items-center gap-3 text-brand-navy font-bold uppercase tracking-widest text-xs mb-4">
+                    <GraduationCap className="w-5 h-5 text-brand-gold" /> School Section
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy mb-6 tracking-tight">
+                    Standard 5th to 10th
+                  </h2>
+                  <p className="text-slate-600 font-medium text-lg leading-relaxed mb-8">
+                    Early standard coaching is the foundation of competitive academic success. Our comprehensive school coaching programs emphasize deep concept building, structured logical progression, and school board preparedness.
+                  </p>
+                  <ul className="space-y-4 mb-8">
+                    <li className="flex items-start gap-3">
+                      <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-slate-700 font-semibold text-sm">State Board & ICSE Board curricula.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-slate-700 font-semibold text-sm">Personal Attention with strictly limited Small Batch Sizes.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-slate-700 font-semibold text-sm">Consistent chapter-wise tests and performance analysis reports for parents.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="order-1 lg:order-2 bg-slate-100 rounded-3xl aspect-[4/3] flex items-center justify-center text-slate-400 font-medium shadow-inner relative overflow-hidden border border-slate-200">
+                  <span className="text-slate-500 font-bold text-sm">School Coaching Batch</span>
+                </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy mb-6 tracking-tight">
-                11th & 12th Science
-              </h2>
-              <p className="text-slate-600 font-medium text-lg leading-relaxed mb-8">
-                Targeted, result-oriented coaching programs mapped specifically to boards and competitive entrance examinations. We cultivate solid logical modeling, high-speed problem-solving skills, and stress-free academic stamina.
-              </p>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-3">
-                  <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">CET State Entrance Board preparation.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">Class 11 and 12 Board Exams & MHT-CET Preparation.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-slate-700 font-semibold text-sm">Exhaustive PCM (Physics, Chemistry, Maths) & PCB (Physics, Chemistry, Biology) Core foundations.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+
+              {/* Science College Division (Fallback) */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="bg-slate-100 rounded-3xl aspect-[4/3] flex items-center justify-center text-slate-400 font-medium shadow-inner relative overflow-hidden border border-slate-200">
+                  <span className="text-slate-500 font-bold text-sm">Science College Coaching Batch</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-3 text-brand-navy font-bold uppercase tracking-widest text-xs mb-4">
+                    <Microscope className="w-5 h-5 text-brand-gold" /> College Section
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-brand-navy mb-6 tracking-tight">
+                    11th & 12th Science
+                  </h2>
+                  <p className="text-slate-600 font-medium text-lg leading-relaxed mb-8">
+                    Targeted, result-oriented coaching programs mapped specifically to boards and competitive entrance examinations. We cultivate solid logical modeling, high-speed problem-solving skills, and stress-free academic stamina.
+                  </p>
+                  <ul className="space-y-4 mb-8">
+                    <li className="flex items-start gap-3">
+                      <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-slate-700 font-semibold text-sm">CET State Entrance Board preparation.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-slate-700 font-semibold text-sm">Class 11 and 12 Board Exams & MHT-CET Preparation.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Target className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                      <span className="text-slate-700 font-semibold text-sm">Exhaustive PCM (Physics, Chemistry, Maths) & PCB (Physics, Chemistry, Biology) Core foundations.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
 
         </div>
       </section>
 
     </div>
   );
-}
+}

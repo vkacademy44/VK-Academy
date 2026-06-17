@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getSiteSettings } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
 
 const footerLinks = {
   Explore: [
@@ -17,7 +19,31 @@ const footerLinks = {
   ],
 };
 
-export default function Footer() {
+export default async function Footer() {
+  const settings = await getSiteSettings().catch(() => null);
+
+  const instituteName = settings?.instituteName || "VK Academy";
+  const footerDescription = settings?.footerDescription || "Empowering students with knowledge, character, and the competitive edge for a bright future. A legacy of excellence.";
+  const address = settings?.address || "Shop No: 4, M. N. Yadav Bhavan,\nMohili Village Pipeline, above Jethva Tailor,\nMumbai, Maharashtra 400072";
+  const phone = settings?.phone || "83569 92905";
+  const phoneLink = settings?.phone ? `tel:${settings.phone.replace(/\s+/g, "")}` : "tel:8356992905";
+  const email = settings?.email || "vkacademy44@gmail.com";
+  const googleMapsEmbedUrl = settings?.googleMapsEmbedUrl || "https://maps.google.com/maps?q=19.100898893729603,72.89231479615131&t=&z=17&ie=UTF8&iwloc=&output=embed";
+  const googleMapsCtaUrl = settings?.googleMapsCtaUrl || "https://www.google.com/maps?q=19.100898893729603,72.89231479615131";
+  
+  const logoUrl = settings?.logo ? urlFor(settings.logo).url() : "/images/vkLogo.jpeg";
+  const logoAlt = settings?.logo?.alt || "VK Academy Logo";
+  
+  const currentYear = new Date().getFullYear();
+  const copyrightText = settings?.copyrightText || `© ${currentYear} VK Academy. All rights reserved.`;
+
+  const socialLinks = [
+    { name: "Facebook", href: settings?.facebookUrl || "#" },
+    { name: "Instagram", href: settings?.instagramUrl || "#" },
+    { name: "LinkedIn", href: settings?.linkedinUrl || "#" },
+    { name: "YouTube", href: settings?.youtubeUrl || "#" },
+  ];
+
   return (
     <footer className="bg-brand-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
@@ -30,18 +56,18 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-slate-700 shadow-sm flex items-center justify-center">
                 <Image
-                  src="/images/vkLogo.jpeg"
-                  alt="VK Academy Logo"
+                  src={logoUrl}
+                  alt={logoAlt}
                   fill
                   sizes="32px"
                   className="object-cover"
                 />
               </div>
-              <span className="text-lg font-extrabold tracking-tight">VK Academy</span>
+              <span className="text-lg font-extrabold tracking-tight">{instituteName}</span>
             </div>
 
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Empowering students with knowledge, character, and the competitive edge for a bright future. A legacy of excellence.
+            <p className="text-slate-400 text-sm leading-relaxed whitespace-pre-line">
+              {footerDescription}
             </p>
           </div>
 
@@ -72,19 +98,17 @@ export default function Footer() {
               Reach Us
             </h3>
             <div className="space-y-3 text-sm text-slate-300">
-              <p className="leading-relaxed">
-                Shop No: 4, M. N. Yadav Bhavan,<br />
-                Mohili Village Pipeline, above Jethva Tailor,<br />
-                Mumbai, Maharashtra 400072
+              <p className="leading-relaxed whitespace-pre-line">
+                {address}
               </p>
               <p className="space-y-1">
-                <a href="tel:8356992905" className="block hover:text-brand-gold transition-colors">
-                  📞 83569 92905
+                <a href={phoneLink} className="block hover:text-brand-gold transition-colors">
+                  📞 {phone}
                 </a>
               </p>
               <p>
-                <a href="mailto:vkacademy44@gmail.com" className="hover:text-brand-gold transition-colors">
-                  vkacademy44@gmail.com
+                <a href={`mailto:${email}`} className="hover:text-brand-gold transition-colors">
+                  {email}
                 </a>
               </p>
             </div>
@@ -99,7 +123,7 @@ export default function Footer() {
           <div className="relative rounded-2xl overflow-hidden border border-slate-700 h-[220px] sm:h-[280px] w-full">
             {/* Map iframe — grayscale to match dark footer, lifts on hover */}
             <iframe
-              src="https://maps.google.com/maps?q=19.100898893729603,72.89231479615131&t=&z=17&ie=UTF8&iwloc=&output=embed"
+              src={googleMapsEmbedUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -111,12 +135,12 @@ export default function Footer() {
             />
             {/* Location card overlay */}
             <div className="absolute top-3 left-3 bg-brand-navy/95 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-slate-600 z-20 max-w-[220px] hidden sm:block">
-              <p className="text-xs font-extrabold text-white mb-0.5">📍 VK Academy</p>
-              <p className="text-[11px] leading-relaxed text-slate-300">
-                Shop No: 4, M. N. Yadav Bhavan, Mohili Village Pipeline, above Jethva Tailor, Mumbai, Maharashtra 400072
+              <p className="text-xs font-extrabold text-white mb-0.5">📍 {instituteName}</p>
+              <p className="text-[11px] leading-relaxed text-slate-300 whitespace-pre-line">
+                {address}
               </p>
               <a
-                href="https://www.google.com/maps?q=19.100898893729603,72.89231479615131"
+                href={googleMapsCtaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block mt-1.5 text-[10px] font-bold text-brand-gold hover:underline"
@@ -129,15 +153,15 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <p>© {new Date().getFullYear()} VK Academy. All rights reserved.</p>
+          <p>{copyrightText}</p>
           <div className="flex gap-5">
-            {["Facebook", "Instagram", "LinkedIn", "YouTube"].map((s) => (
+            {socialLinks.map((s) => (
               <Link
-                key={s}
-                href="#"
+                key={s.name}
+                href={s.href}
                 className="hover:text-slate-300 transition-colors duration-150"
               >
-                {s}
+                {s.name}
               </Link>
             ))}
           </div>
@@ -146,4 +170,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+}
