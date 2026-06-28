@@ -7,6 +7,8 @@ import { divisionSchema } from './division'
 import { batchSchema } from './batch'
 import { facultySchema } from './faculty'
 import { studentLifeSchema } from './studentLife'
+import { announcementSchema } from './announcement'
+import { weeklyQuizSchema } from './weeklyQuiz'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -18,7 +20,10 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     batchSchema,
     facultySchema,
     studentLifeSchema,
+    announcementSchema,
+    weeklyQuizSchema,
   ],
 }
+
 
 

@@ -3,6 +3,35 @@ import Button from "@/components/ui/Button";
 import { Calendar, Clock, MapPin, Users, ArrowRight } from "lucide-react";
 import { getBatches } from "@/sanity/lib/queries";
 
+export const metadata = {
+  title: "Upcoming Batches & Schedules | VK Academy Mumbai",
+  description: "Check out upcoming school coaching and science entrance coaching batch schedules for CET and JEE at VK Academy, Saki Naka Mumbai.",
+  alternates: {
+    canonical: "https://www.vkacademy.co.in/batches",
+  },
+  openGraph: {
+    title: "Upcoming Batches & Schedules | VK Academy Mumbai",
+    description: "Check out upcoming school coaching and science entrance coaching batch schedules for CET and JEE at VK Academy, Saki Naka Mumbai.",
+    url: "https://www.vkacademy.co.in/batches",
+    siteName: "VK Academy",
+    type: "website",
+    images: [
+      {
+        url: "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "VK Academy Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Upcoming Batches & Schedules | VK Academy Mumbai",
+    description: "Check out upcoming school coaching and science entrance coaching batch schedules for CET and JEE at VK Academy, Saki Naka Mumbai.",
+    images: ["https://www.vkacademy.co.in/images/vkLogo.jpeg"],
+  },
+};
+
 export default async function BatchesPage() {
   const batches = await getBatches().catch(() => []);
 

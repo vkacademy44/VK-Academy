@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import { Menu, X, Home, LayoutGrid, Calendar, Trophy, Phone } from "lucide-react";
 
@@ -29,6 +29,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleAdminClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (window.confirm("Are you an admin?")) {
+      router.push("/studio");
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -85,6 +93,12 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+              <button
+                onClick={handleAdminClick}
+                className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-brand-navy hover:bg-slate-50 transition-all duration-150"
+              >
+                Admin?
+              </button>
             </nav>
 
             {/* Desktop CTA */}
@@ -163,6 +177,12 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <button
+            onClick={handleAdminClick}
+            className="w-full flex items-center px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-brand-navy transition-all"
+          >
+            Admin?
+          </button>
         </nav>
 
         {/* Drawer CTA */}

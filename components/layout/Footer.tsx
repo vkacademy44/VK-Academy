@@ -24,9 +24,9 @@ export default async function Footer() {
 
   const instituteName = settings?.instituteName || "VK Academy";
   const footerDescription = settings?.footerDescription || "Empowering students with knowledge, character, and the competitive edge for a bright future. A legacy of excellence.";
-  const address = settings?.address || "Shop No: 4, M. N. Yadav Bhavan,\nMohili Village Pipeline, above Jethva Tailor,\nMumbai, Maharashtra 400072";
-  const phone = settings?.phone || "83569 92905";
-  const phoneLink = settings?.phone ? `tel:${settings.phone.replace(/\s+/g, "")}` : "tel:8356992905";
+  const address = settings?.address || "Shop No: 4, M. N. Yadav Bhavan,\nMohili Village Pipeline,\nAbove Jethva Tailor,\nMumbai, Maharashtra 400072\nIndia";
+  const phone = settings?.phone || "+91 83569 92905";
+  const phoneLink = settings?.phone ? `tel:${settings.phone.replace(/\s+/g, "")}` : "tel:+918356992905";
   const email = settings?.email || "vkacademy44@gmail.com";
   const googleMapsEmbedUrl = settings?.googleMapsEmbedUrl || "https://maps.google.com/maps?q=19.100898893729603,72.89231479615131&t=&z=17&ie=UTF8&iwloc=&output=embed";
   const googleMapsCtaUrl = settings?.googleMapsCtaUrl || "https://www.google.com/maps?q=19.100898893729603,72.89231479615131";

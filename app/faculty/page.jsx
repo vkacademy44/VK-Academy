@@ -3,6 +3,35 @@ import Button from "@/components/ui/Button";
 import { getFaculty } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 
+export const metadata = {
+  title: "Expert Faculty | VK Academy Mumbai",
+  description: "Meet the expert educators and mentors at VK Academy Mumbai. Highly experienced faculty for school, college, CET, and JEE coaching.",
+  alternates: {
+    canonical: "https://www.vkacademy.co.in/faculty",
+  },
+  openGraph: {
+    title: "Expert Faculty | VK Academy Mumbai",
+    description: "Meet the expert educators and mentors at VK Academy Mumbai. Highly experienced faculty for school, college, CET, and JEE coaching.",
+    url: "https://www.vkacademy.co.in/faculty",
+    siteName: "VK Academy",
+    type: "website",
+    images: [
+      {
+        url: "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "VK Academy Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Expert Faculty | VK Academy Mumbai",
+    description: "Meet the expert educators and mentors at VK Academy Mumbai. Highly experienced faculty for school, college, CET, and JEE coaching.",
+    images: ["https://www.vkacademy.co.in/images/vkLogo.jpeg"],
+  },
+};
+
 export default async function FacultyPage() {
   const mentors = await getFaculty().catch(() => []);
 

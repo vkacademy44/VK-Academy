@@ -1,14 +1,58 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { Calculator, Microscope, GraduationCap, Target, Brain, Activity, BarChart3 } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
+import type { Metadata } from "next";
 import { getDivisions } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+
+export const metadata: Metadata = {
+  title: "Academic Divisions & Courses | VK Academy Mumbai",
+  description:
+    "Learn about our primary education divisions: School Section (5th-10th) and Science Coaching (11th-12th) with CET & JEE prep in Mumbai.",
+  alternates: {
+    canonical: "https://www.vkacademy.co.in/academic-divisions",
+  },
+  openGraph: {
+    title: "Academic Divisions & Courses | VK Academy Mumbai",
+    description:
+      "Learn about our primary education divisions: School Section (5th-10th) and Science Coaching (11th-12th) with CET & JEE prep in Mumbai.",
+    url: "https://www.vkacademy.co.in/academic-divisions",
+    siteName: "VK Academy",
+    type: "website",
+    images: [
+      {
+        url: "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "VK Academy Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Academic Divisions & Courses | VK Academy Mumbai",
+    description:
+      "Learn about our primary education divisions: School Section (5th-10th) and Science Coaching (11th-12th) with CET & JEE prep in Mumbai.",
+    images: ["https://www.vkacademy.co.in/images/vkLogo.jpeg"],
+  },
+};
 
 export default async function AcademicDivisionsPage() {
   const divisions = await getDivisions().catch(() => []);
 
   return (
     <div className="w-full bg-white">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.vkacademy.co.in" },
+            { "@type": "ListItem", position: 2, name: "Academic Divisions", item: "https://www.vkacademy.co.in/academic-divisions" },
+          ],
+        }}
+      />
       
       {/* Page Header */}
       <section className="bg-brand-navy py-20 lg:py-28 relative overflow-hidden rounded-sm">

@@ -4,7 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp"; 
-import { getSiteSettings } from "@/sanity/lib/queries";
+import AnnouncementMarquee from "@/components/ui/AnnouncementMarquee";
+import { getSiteSettings, getActiveAnnouncements } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 
 const jakarta = Plus_Jakarta_Sans({ 
@@ -32,14 +33,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const announcements = await getActiveAnnouncements().catch(() => []);
+
   return (
     <html lang="en">
       <body className={`${jakarta.className} min-h-screen flex flex-col antialiased`}>
+        <div data-site-chrome="marquee"><AnnouncementMarquee announcements={announcements} /></div>
         <div data-site-chrome="navbar"><Navbar /></div>
         <main className="flex-grow pb-20 lg:pb-0">{children}</main>
         <div data-site-chrome="whatsapp"><FloatingWhatsApp /></div>

@@ -2,25 +2,171 @@ import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { Users, BookOpen, LineChart, Star, ArrowRight, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import KnowledgeTreeJourney from "@/components/ui/KnowledgeTreeJourney";
+import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
 import HeroCarousel from "@/components/ui/HeroCarousel";
+
+export const metadata: Metadata = {
+  title: "VK Academy | Best 11th, 12th, CET & JEE Coaching Classes in Saki Naka Mumbai",
+  description: "VK Academy offers expert coaching for 11th, 12th, CET, and JEE students in Saki Naka, Mohili Village, and Andheri East Mumbai.",
+  alternates: {
+    canonical: "https://www.vkacademy.co.in",
+  },
+  openGraph: {
+    title: "VK Academy | Best 11th, 12th, CET & JEE Coaching Classes in Saki Naka Mumbai",
+    description: "VK Academy offers expert coaching for 11th, 12th, CET, and JEE students in Saki Naka, Mohili Village, and Andheri East Mumbai.",
+    url: "https://www.vkacademy.co.in",
+    siteName: "VK Academy",
+    type: "website",
+    images: [
+      {
+        url: "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "VK Academy Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VK Academy | Best 11th, 12th, CET & JEE Coaching Classes in Saki Naka Mumbai",
+    description: "VK Academy offers expert coaching for 11th, 12th, CET, and JEE students in Saki Naka, Mohili Village, and Andheri East Mumbai.",
+    images: ["https://www.vkacademy.co.in/images/vkLogo.jpeg"],
+  },
+};
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "VK Academy",
+  "image": "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+  "@id": "https://www.vkacademy.co.in/#localbusiness",
+  "url": "https://www.vkacademy.co.in",
+  "telephone": "+91 83569 92905",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shop No: 4, M. N. Yadav Bhavan, Mohili Village Pipeline, Above Jethva Tailor",
+    "addressLocality": "Saki Naka, Andheri East, Mumbai",
+    "addressRegion": "Maharashtra",
+    "postalCode": "400072",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 19.100898893729603,
+    "longitude": 72.89231479615131
+  },
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Mumbai"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Saki Naka"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Mohili Village"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Andheri East"
+    }
+  ]
+};
+
+const educationalOrgSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "VK Academy",
+  "url": "https://www.vkacademy.co.in",
+  "logo": "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+  "telephone": "+91 83569 92905",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Shop No: 4, M. N. Yadav Bhavan, Mohili Village Pipeline, Above Jethva Tailor",
+    "addressLocality": "Saki Naka, Andheri East, Mumbai",
+    "addressRegion": "Maharashtra",
+    "postalCode": "400072",
+    "addressCountry": "IN"
+  },
+  "knowsAbout": [
+    "11th Coaching",
+    "12th Coaching",
+    "CET Coaching",
+    "JEE Coaching",
+    "Science Coaching",
+    "Commerce Coaching"
+  ]
+};
+
+const coursesSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "11th Coaching",
+    "description": "Comprehensive coaching for 11th Science and Commerce students in Saki Naka, Mumbai, offering solid foundational concepts.",
+    "provider": {
+      "@type": "EducationalOrganization",
+      "name": "VK Academy",
+      "sameAs": "https://www.vkacademy.co.in"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "12th Coaching",
+    "description": "Result-oriented 12th Board coaching classes for Science and Commerce streams in Saki Naka, Mumbai.",
+    "provider": {
+      "@type": "EducationalOrganization",
+      "name": "VK Academy",
+      "sameAs": "https://www.vkacademy.co.in"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "CET Coaching",
+    "description": "Exhaustive entrance coaching classes for MHT-CET in Andheri East, Mumbai, targeting top colleges.",
+    "provider": {
+      "@type": "EducationalOrganization",
+      "name": "VK Academy",
+      "sameAs": "https://www.vkacademy.co.in"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "JEE Coaching",
+    "description": "Professional coaching program for JEE Main & Advanced entrance preparation in Saki Naka, Mumbai.",
+    "provider": {
+      "@type": "EducationalOrganization",
+      "name": "VK Academy",
+      "sameAs": "https://www.vkacademy.co.in"
+    }
+  }
+];
 import AchieverCard from "@/components/ui/AchieverCard";
 import HeroSection from "@/components/ui/HeroSection";
+import WeeklyQuizBanner from "@/components/ui/WeeklyQuizBanner";
 import { 
   getFeaturedAchievers, 
   getActiveHeroSlides, 
   getTestimonials, 
-  getSiteSettings 
+  getSiteSettings,
+  getActiveWeeklyQuizzes
 } from "@/sanity/lib/queries";
 
 
 export default async function Home() {
   // Fetch homepage data from Sanity in parallel
-  const [featuredAchievers, heroSlides, testimonials, settings] = await Promise.all([
+  const [featuredAchievers, heroSlides, testimonials, settings, weeklyQuizzes] = await Promise.all([
     getFeaturedAchievers().catch(() => []),
     getActiveHeroSlides().catch(() => []),
     getTestimonials().catch(() => []),
     getSiteSettings().catch(() => null),
+    getActiveWeeklyQuizzes().catch(() => []),
   ]);
 
   // Static fallback data shown when Sanity has no featured documents yet
@@ -55,6 +201,10 @@ export default async function Home() {
 
   return (
     <div className="w-full bg-white">
+      <JsonLd data={localBusinessSchema} />
+      <JsonLd data={educationalOrgSchema} />
+      <JsonLd data={coursesSchema} />
+      <WeeklyQuizBanner quizzes={weeklyQuizzes} />
 
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
@@ -133,8 +283,7 @@ export default async function Home() {
         </section>
       )}
 
-      {/* ── KNOWLEDGE TREE JOURNEY ─────────────────────────────────────── */}
-      <KnowledgeTreeJourney />
+
 
       {/* ── COURSES SECTION ────────────────────────────────────────────── */}
       <section className="py-20 lg:py-28 bg-white border-b border-slate-100">

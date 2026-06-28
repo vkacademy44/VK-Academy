@@ -1,9 +1,39 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import AchieverCard from "@/components/ui/AchieverCard";
 import { getAllAchievers, getAchieverYears } from "@/sanity/lib/queries";
 import type { Achiever } from "@/types/achiever";
 import ShiningStarCard from "@/components/ui/ShiningStarCard";
+
+export const metadata: Metadata = {
+  title: "VK Academy Toppers & Wall of Fame | Mumbai",
+  description: "Celebrate the achievements of our outstanding students. VK Academy's top scorers in boards, CET, and JEE entrance exams.",
+  alternates: {
+    canonical: "https://www.vkacademy.co.in/wall-of-fame",
+  },
+  openGraph: {
+    title: "VK Academy Toppers & Wall of Fame | Mumbai",
+    description: "Celebrate the achievements of our outstanding students. VK Academy's top scorers in boards, CET, and JEE entrance exams.",
+    url: "https://www.vkacademy.co.in/wall-of-fame",
+    siteName: "VK Academy",
+    type: "website",
+    images: [
+      {
+        url: "https://www.vkacademy.co.in/images/vkLogo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "VK Academy Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VK Academy Toppers & Wall of Fame | Mumbai",
+    description: "Celebrate the achievements of our outstanding students. VK Academy's top scorers in boards, CET, and JEE entrance exams.",
+    images: ["https://www.vkacademy.co.in/images/vkLogo.jpeg"],
+  },
+};
 
 // ── Fallback data (shown until Sanity content is added) ─────────────────────
 const FALLBACK_ACHIEVERS = [

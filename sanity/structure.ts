@@ -8,6 +8,8 @@ import {
   CalendarIcon,
   UsersIcon,
   ImageIcon,
+  PinIcon,
+  HelpCircleIcon,
 } from '@sanity/icons'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
@@ -106,6 +108,30 @@ export const structure: StructureResolver = (S) =>
             .filter('_type == "studentLife"')
             .defaultOrdering([{ field: 'displayOrder', direction: 'asc' }])
         ),
+
+      S.divider(),
+
+      // 9. Announcements
+      S.listItem()
+        .title('Announcements')
+        .icon(PinIcon)
+        .child(
+          S.documentList()
+            .title('Announcements')
+            .filter('_type == "announcement"')
+            .defaultOrdering([{ field: 'createdAt', direction: 'desc' }])
+        ),
+
+      // 10. Weekly Quizzes
+      S.listItem()
+        .title('Weekly Quizzes')
+        .icon(HelpCircleIcon)
+        .child(
+          S.documentList()
+            .title('Weekly Quizzes')
+            .filter('_type == "weeklyQuiz"')
+        ),
     ])
+
 
 

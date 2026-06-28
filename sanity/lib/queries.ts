@@ -8,6 +8,8 @@ import type { Division } from '@/types/division'
 import type { Batch } from '@/types/batch'
 import type { Faculty } from '@/types/faculty'
 import type { StudentLife } from '@/types/studentLife'
+import type { Announcement } from '@/types/announcement'
+import type { WeeklyQuiz } from '@/types/weeklyQuiz'
 
 // ── GROQ Fragments ────────────────────────────────────────────────────────────
 
@@ -300,5 +302,45 @@ export async function getFaculty(): Promise<Faculty[]> {
 
 export async function getStudentLifeItems(): Promise<StudentLife[]> {
   return client.fetch<StudentLife[]>(STUDENT_LIFE_QUERY, {}, { next: { revalidate: 60 } })
+}
+
+// ── Announcement & Weekly Quiz Queries ──────────────────────────────────────────
+
+export const ACTIVE_ANNOUNCEMENTS_QUERY = groq`
+  *[_type == "announcement" && isActive == true] | order(createdAt desc) {
+    _id,
+    _createdAt,
+    _updatedAt,
+    title,
+    description,
+    priority,
+    isActive,
+    createdAt
+  }
+`
+
+export const ACTIVE_WEEKLY_QUIZZES_QUERY = groq`
+  *[_type == "weeklyQuiz" && isActive == true] {
+    _id,
+    _createdAt,
+    _updatedAt,
+    quizTitle,
+    description,
+    quizLink,
+    isActive,
+    startDate,
+    endDate,
+    buttonText
+  }
+`
+
+// ── Announcement & Weekly Quiz Fetchers ─────────────────────────────────────────
+
+export async function getActiveAnnouncements(): Promise<Announcement[]> {
+  return client.fetch<Announcement[]>(ACTIVE_ANNOUNCEMENTS_QUERY, {}, { next: { revalidate: 60 } })
+}
+
+export async function getActiveWeeklyQuizzes(): Promise<WeeklyQuiz[]> {
+  return client.fetch<WeeklyQuiz[]>(ACTIVE_WEEKLY_QUIZZES_QUERY, {}, { next: { revalidate: 60 } })
 }
 
