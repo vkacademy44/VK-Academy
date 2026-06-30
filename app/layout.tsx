@@ -7,6 +7,8 @@ import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 import AnnouncementMarquee from "@/components/ui/AnnouncementMarquee";
 import { getSiteSettings, getActiveAnnouncements } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const jakarta = Plus_Jakarta_Sans({ 
   subsets: ["latin"],
@@ -42,10 +44,29 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-78ZP4S7DGX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-78ZP4S7DGX');
+          `}
+        </Script>
+      </head>
       <body className={`${jakarta.className} min-h-screen flex flex-col antialiased`}>
         <div data-site-chrome="marquee"><AnnouncementMarquee announcements={announcements} /></div>
         <div data-site-chrome="navbar"><Navbar /></div>
-        <main className="flex-grow pb-20 lg:pb-0">{children}</main>
+        <main className="flex-grow pb-20 lg:pb-0">
+          {children}
+          <Analytics />
+        </main>
         <div data-site-chrome="whatsapp"><FloatingWhatsApp /></div>
         <div data-site-chrome="footer"><Footer /></div>
 
