@@ -6,12 +6,12 @@ import { X, Play, ZoomIn, Grid3X3, LayoutGrid } from "lucide-react";
 import type { StudentLife } from "@/types/studentLife";
 import { urlFor } from "@/sanity/lib/image";
 
-// Helper to extract YouTube video ID
+// Helper to extract YouTube video ID (supports watch, shorts, youtu.be links)
 function getYoutubeId(url: string) {
   if (!url) return null;
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const regExp = /^.*(youtu\.be\/|youtube\.com\/shorts\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
+  return match && match[2] && match[2].length >= 8 ? match[2] : null;
 }
 
 type MediaItem = {

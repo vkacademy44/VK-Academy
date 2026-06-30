@@ -32,7 +32,7 @@ export default function Home() {
                 <Button href="/batches" variant="primary">
                   Explore Batches
                 </Button>
-                <Button href="/contact" variant="outline">
+                <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20download%20the%20VK%20Academy%20brochure." variant="outline">
                   Download Brochure
                 </Button>
               </div>

@@ -116,7 +116,7 @@ export const studentLifeSchema = defineType({
       title: 'YouTube Video URL',
       type: 'url',
       group: 'media',
-      description: 'Required if Media Type is YouTube Video (e.g. https://www.youtube.com/watch?v=...)',
+      description: 'Required if Media Type is YouTube Video. Supports: youtube.com/watch?v=..., youtube.com/shorts/..., and youtu.be/... links',
       hidden: ({ parent }) => parent?.mediaType !== 'youtube',
       validation: (Rule) =>
         Rule.custom((value, context) => {
@@ -125,10 +125,11 @@ export const studentLifeSchema = defineType({
             return 'A YouTube URL is required when Media Type is YouTube Video.'
           }
           if (value) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+            // Match standard watch, shorts, youtu.be, embed, and v/ formats
+            const regExp = /^.*(youtu\.be\/|youtube\.com\/shorts\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
             const match = value.match(regExp)
-            if (!match || match[2].length !== 11) {
-              return 'Please enter a valid YouTube video URL.'
+            if (!match || !match[2] || match[2].length < 8) {
+              return 'Please enter a valid YouTube video URL (supports watch, shorts, and youtu.be links).'
             }
           }
           return true
@@ -188,9 +189,10 @@ export const studentLifeSchema = defineType({
       active: 'active',
     },
     prepare({ title, category, mediaType, image, customThumbnail, youtubeUrl, active }) {
+      const typeLabel = mediaType === 'image' ? '🖼️ Image' : '🎥 YouTube Video'
       return {
         title: title ?? 'Unnamed Moment',
-        subtitle: `${category} · ${mediaType === 'image' ? 'Image' : 'YouTube Video'} · ${active ? 'Active' : 'Inactive'}`,
+        subtitle: `${category} · ${typeLabel} · ${active ? '✅ Active' : '❌ Inactive'}`,
         media: mediaType === 'image' ? image : (customThumbnail ?? undefined),
       }
     },

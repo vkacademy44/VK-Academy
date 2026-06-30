@@ -1,9 +1,37 @@
 "use client";
  
-import Button from "@/components/ui/Button";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Phone, Mail, Send } from "lucide-react";
  
 export default function ContactClient() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [course, setCourse] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Build a readable WhatsApp message from the form data
+    const lines = [
+      `*New Inquiry from VK Academy Website*`,
+      ``,
+      `*Name:* ${name || "Not provided"}`,
+      `*Email:* ${email || "Not provided"}`,
+      `*Phone:* ${phone || "Not provided"}`,
+      `*Target Exam / Class:* ${course || "Not selected"}`,
+      ``,
+      `*Message:*`,
+      message || "No message provided",
+    ];
+
+    const whatsappText = encodeURIComponent(lines.join("\n"));
+    const whatsappUrl = `https://wa.me/918356992905?text=${whatsappText}`;
+
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <div className="w-full bg-white">
       
@@ -52,7 +80,7 @@ export default function ContactClient() {
                   <div>
                     <h5 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Phone Number</h5>
                     <p className="text-brand-navy font-semibold text-sm leading-relaxed">
-                      <a href="tel:8356992905" className="hover:text-brand-gold transition-colors">
+                      <a href="tel:+918356992905" className="hover:text-brand-gold transition-colors">
                         +91 83569 92905
                       </a>
                     </p>
@@ -94,15 +122,18 @@ export default function ContactClient() {
             <div className="lg:col-span-7 bg-white p-8 md:p-12 rounded-[2rem] shadow-[0_20px_40px_rgb(0,0,0,0.06)] border border-slate-100">
               <h3 className="text-2xl font-extrabold text-brand-navy mb-2">Academic Inquiry</h3>
               <p className="text-slate-500 text-sm font-medium mb-8">
-                Fill out the form below and an admission counselor will contact you within 24 hours.
+                Fill out the form below and click send — it will open WhatsApp with your inquiry pre-filled.
               </p>
  
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-xs font-bold text-brand-navy tracking-wide">Full Name *</label>
                     <input 
                       type="text" id="name" placeholder="Student or Parent Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
                       className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                     />
                   </div>
@@ -110,6 +141,9 @@ export default function ContactClient() {
                     <label htmlFor="email" className="text-xs font-bold text-brand-navy tracking-wide">Email Address *</label>
                     <input 
                       type="email" id="email" placeholder="john@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                       className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                     />
                   </div>
@@ -120,59 +154,44 @@ export default function ContactClient() {
                     <label htmlFor="phone" className="text-xs font-bold text-brand-navy tracking-wide">Phone Number *</label>
                     <input 
                       type="tel" id="phone" placeholder="+91 00000 00000"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
                       className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all"
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="course" className="text-xs font-bold text-brand-navy tracking-wide">Target Exam / Class</label>
-                    <select id="course" className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all appearance-none">
+                    <select 
+                      id="course" 
+                      value={course}
+                      onChange={(e) => setCourse(e.target.value)}
+                      className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all appearance-none"
+                    >
                       <option value="">Select a program</option>
-                      <option value="school">School Section (Std 5th to 10th)</option>
-                      <option value="science-11-12">11th & 12th Science Coaching</option>
-                      <option value="cet">MHT-CET Entrance Preparation</option>
+                      <option value="School Section (Std 5th to 10th)">School Section (Std 5th to 10th)</option>
+                      <option value="11th & 12th Science Coaching">11th & 12th Science Coaching</option>
+                      <option value="MHT-CET Entrance Preparation">MHT-CET Entrance Preparation</option>
                     </select>
                   </div>
                 </div>
  
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-xs font-bold text-brand-navy tracking-wide">Your Message *</label>
-                  <textarea id="message" rows={4} placeholder="Tell us about your current class and coaching requirements..." className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all resize-none"></textarea>
+                  <textarea 
+                    id="message" rows={4} placeholder="Tell us about your current class and coaching requirements..." 
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                    className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20 focus:border-brand-navy transition-all resize-none"
+                  ></textarea>
                 </div>
  
                 <button type="submit" className="w-full flex items-center justify-center gap-2 bg-brand-navy hover:bg-[#002244] text-white px-7 py-4 rounded-xl font-bold text-sm transition-all duration-300 shadow-md mt-4">
-                  Send Inquiry <Send className="w-4 h-4 text-brand-gold" />
+                  Send Inquiry via WhatsApp <Send className="w-4 h-4 text-brand-gold" />
                 </button>
               </form>
             </div>
-          </div>
-        </div>
-      </section>
- 
-      {/* Embedded Location Map */}
-      <section className="pb-16 lg:pb-24">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="bg-slate-100 rounded-[2rem] overflow-hidden shadow-inner border border-slate-200 h-[400px] lg:h-[500px] w-full relative">
-            
-            {/* Live Google Maps iFrame matching the exact Mumbai address */}
-            <iframe 
-              src="https://maps.google.com/maps?q=19.100898893729603,72.89231479615131&t=&z=17&ie=UTF8&iwloc=&output=embed" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 grayscale hover:grayscale-0 transition-all duration-700"
-            ></iframe>
-            
-            {/* Overlay Box */}
-            <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-xl border border-white/20 z-20 max-w-sm hidden md:block">
-              <h5 className="text-lg font-extrabold text-brand-navy mb-1">Visit Our Campus</h5>
-              <p className="text-sm leading-relaxed text-slate-500 font-medium">
-                Shop No: 4, M. N. Yadav Bhavan, Mohili Village Pipeline, Above Jethva Tailor, Mumbai, Maharashtra 400072, India
-              </p>
-            </div>
- 
           </div>
         </div>
       </section>

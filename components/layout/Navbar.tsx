@@ -103,7 +103,7 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:block">
-              <Button href="/contact" variant="primary">
+              <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20VK%20Academy%20courses." variant="primary">
                 Enquire Now
               </Button>
             </div>
@@ -187,7 +187,7 @@ export default function Navbar() {
 
         {/* Drawer CTA */}
         <div className="px-4 pb-8 pt-4 border-t border-slate-100">
-          <Button href="/contact" variant="primary" className="w-full">
+          <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20VK%20Academy%20courses." variant="primary" className="w-full">
             Enquire Now
           </Button>
         </div>

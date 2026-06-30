@@ -183,7 +183,7 @@ export default async function FacultyPage() {
       <section className="bg-brand-navy py-16 rounded-sm">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-extrabold text-white mb-6">Learn from the best to become the best.</h2>
-          <Button href="/contact" variant="accent" className="px-10">
+          <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20book%20a%20counseling%20session%20at%20VK%20Academy." variant="accent" className="px-10">
             Book a Counseling Session
           </Button>
         </div>

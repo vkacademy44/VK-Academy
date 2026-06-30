@@ -35,6 +35,20 @@ export default function Button({
   const cls = `${base} ${variants[variant]} ${className}`;
 
   if (href) {
+    // Use native <a> for external links (tel:, mailto:, http://, https://)
+    const isExternal = /^(https?:\/\/|tel:|mailto:)/.test(href);
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          className={cls}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    }
     return (
       <Link href={href} className={cls}>
         {children}

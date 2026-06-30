@@ -183,7 +183,7 @@ export default async function WallOfFamePage() {
           <p className="text-slate-500 mb-8 font-medium">
             Join our target batches and let our expert faculty guide your preparation strategy.
           </p>
-          <Button href="/contact" variant="primary" className="px-8">
+          <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20admissions%20at%20VK%20Academy." variant="primary" className="px-8">
             Enquire About Admissions
           </Button>
         </div>

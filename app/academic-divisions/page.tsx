@@ -70,7 +70,7 @@ export default async function AcademicDivisionsPage() {
             <p className="text-slate-300 font-medium text-lg leading-relaxed mb-10">
               Discover our specialized departments designed to build unbreakable fundamentals and cultivate top-tier competitive board and entrance exam ranks.
             </p>
-            <Button href="/contact" variant="accent" className="shadow-lg">
+            <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20consult%20an%20academic%20advisor%20at%20VK%20Academy." variant="accent" className="shadow-lg">
               Consult an Academic Advisor
             </Button>
           </div>

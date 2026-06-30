@@ -38,10 +38,8 @@ export default async function Footer() {
   const copyrightText = settings?.copyrightText || `© ${currentYear} VK Academy. All rights reserved.`;
 
   const socialLinks = [
-    { name: "Facebook", href: settings?.facebookUrl || "#" },
-    { name: "Instagram", href: settings?.instagramUrl || "#" },
-    { name: "LinkedIn", href: settings?.linkedinUrl || "#" },
-    { name: "YouTube", href: settings?.youtubeUrl || "#" },
+    { name: "YouTube", href: settings?.youtubeUrl || "https://www.youtube.com/@shrukanojiya" },
+    { name: "Instagram", href: settings?.instagramUrl || "https://www.instagram.com/vkacademy444/" },
   ];
 
   return (
@@ -156,13 +154,15 @@ export default async function Footer() {
           <p>{copyrightText}</p>
           <div className="flex gap-5">
             {socialLinks.map((s) => (
-              <Link
+              <a
                 key={s.name}
                 href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-slate-300 transition-colors duration-150"
               >
                 {s.name}
-              </Link>
+              </a>
             ))}
           </div>
         </div>

@@ -153,12 +153,14 @@ export default async function BatchesPage() {
               Admissions are currently open for the 2026-2027 academic session. Fill out the inquiry form to schedule your campus visit and diagnostic test.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link 
-                href="/contact" 
+              <a 
+                href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20request%20a%20callback%20about%20VK%20Academy%20admissions." 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl font-bold text-sm transition-all duration-200 bg-brand-gold text-brand-navy hover:bg-amber-400 shadow-lg"
               >
                 Request Callback
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -172,7 +174,7 @@ export default async function BatchesPage() {
 function BatchCard({ title, batchType, startDate, schedule, status, venue, buttonText, buttonLink, enquiryWhatsapp, badgeColor }) {
   const finalLink = enquiryWhatsapp
     ? `https://wa.me/${enquiryWhatsapp}?text=${encodeURIComponent(`Hi, I'm interested in the batch: ${title}`)}`
-    : (buttonLink || "/contact");
+    : (buttonLink || `https://wa.me/918356992905?text=${encodeURIComponent(`Hi, I'm interested in the batch: ${title}`)}`);
 
   return (
     <div className="bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-shadow duration-300">

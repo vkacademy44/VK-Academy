@@ -246,10 +246,10 @@ export default async function Home() {
                 </p>
 
                 <div className="flex flex-wrap gap-3 mb-14">
-                  <Button href="/contact" variant="accent">
+                  <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20VK%20Academy%20courses." variant="accent">
                     Enroll Now
                   </Button>
-                  <Button href="tel:8356992905" variant="outline">
+                  <Button href="tel:+918356992905" variant="outline">
                     📞 Call Now
                   </Button>
                 </div>
@@ -321,7 +321,7 @@ export default async function Home() {
                 </ul>
               </div>
               <div className="mt-8">
-                <Button href="/contact" variant="accent" className="w-full">
+                <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20enroll%20in%20the%20School%20Batch%20(Std%205th-10th)." variant="accent" className="w-full">
                   Enroll in School Batch
                 </Button>
               </div>
@@ -348,7 +348,7 @@ export default async function Home() {
                 </ul>
               </div>
               <div className="mt-8">
-                <Button href="/contact" variant="primary" className="w-full">
+                <Button href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20enroll%20in%20the%20Science%20Batch%20(11th%20%26%2012th)." variant="primary" className="w-full">
                   Enroll in Science Batch
                 </Button>
               </div>
@@ -419,7 +419,7 @@ export default async function Home() {
             </div>
 
             {/* Right Column: After Transformation */}
-            <div className="bg-white border-2 border-brand-gold rounded-3xl p-6 shadow-md flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+            <div className="bg-white  rounded-3xl p-6 shadow-md flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none" />
               <div className="space-y-4">
     
@@ -656,12 +656,14 @@ export default async function Home() {
             <Button href="/batches" variant="accent">
               Explore Batches
             </Button>
-            <Link 
-              href="/contact" 
+            <a 
+              href="https://wa.me/918356992905?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20admissions%20at%20VK%20Academy." 
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 tracking-wide border border-white text-white hover:bg-white/10 bg-transparent"
             >
               Contact Admissions
-            </Link>
+            </a>
           </div>
         </div>
       </section>
